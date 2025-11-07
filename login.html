@@ -20,9 +20,47 @@
 
   <!-- Login (inicialmente oculto) -->
   <section id="auth" class="auth hidden" aria-hidden="true">
-    <!-- Tu tarjeta/formulario de login aquí (el mismo que ya tienes) -->
+<div class="auth-card">
+  <img src="imagenes/logo.png" alt="" class="auth-logo" />
+  <h2 class="auth-brand">TRASH FINDER</h2>
+  <h3 class="auth-welcome">BIENVENIDO</h3>
+  <p class="auth-caption">Listo para hacer el cambio</p>
+
+  <form class="auth-form" autocomplete="on">
+    <label class="field">
+      <span>Correo electrónico</span>
+      <input type="email" name="email" placeholder="tucorreo@ejemplo.com" required />
+    </label>
+
+    <label class="field password">
+      <span>Contraseña</span>
+      <input id="passwordInput" type="password" name="password" placeholder="••••••••" required />
+      <button id="togglePwd" class="eye-btn" type="button" aria-label="Mostrar u ocultar contraseña">👁️</button>
+    </label>
+
+    <div class="form-row">
+      <label class="checkbox"><input type="checkbox" name="remember" /> <span>Recuérdame</span></label>
+      <a href="#" class="link-muted">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <button class="btn btn-primary btn-block" type="submit">Iniciar Sesión</button>
+
+    <div class="divider" role="separator" aria-hidden="true">•</div>
+
+    <button class="btn btn-outline btn-block provider">
+      <span class="provider-icon google">G</span> Continúa con Google
+    </button>
+    <button class="btn btn-outline btn-block provider">
+      <span class="provider-icon facebook">f</span> Continúa con Facebook
+    </button>
+
+    <p class="alt-action">¿No tienes cuenta? <a href="#" class="link">Regístrate aquí</a></p>
+  </form>
+</div>
+
   </section>
 
   <script src="login.js" defer></script>
 </body>
 </html>
+
