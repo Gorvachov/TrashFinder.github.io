@@ -170,12 +170,21 @@ body.lock { overflow: hidden; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Capa del login (formulario centrado) */
-.auth {
-  position: fixed; inset: 0; z-index: 2100;
-  background: #0f0f10;           /* marco oscuro tipo mockup */
-  display: grid; place-items: center; padding: 24px;
+/* Capa del login a pantalla completa, fondo blanco */
+.auth{
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  background: #fff;              /* ← antes era oscuro */
+  display: flex;                 /* centrado robusto en móvil */
+  align-items: center;
+  justify-content: center;
+  padding: 16px;                 /* respiración en bordes chicos */
+  min-height: 100svh;            /* viewport “seguro” en móvil */
+  min-height: 100dvh;            /* fallback moderno */
+  overflow: auto;                /* si el contenido crece, permite scroll */
 }
+
 .auth-card {
   width: min(94vw, 460px);
   background: #fff; border-radius: 28px;
@@ -209,3 +218,4 @@ body.lock { overflow: hidden; }
 .link { color: var(--green-primary); }
 .link-muted { color: #8c8c8c; }
 .divider { text-align: center; color: #999; margin: 16px 0; }
+
