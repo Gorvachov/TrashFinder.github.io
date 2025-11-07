@@ -14,3 +14,18 @@ window.addEventListener('DOMContentLoaded', () => {
     auth.querySelector('input[type="email"]')?.focus();
   }, SPLASH_MS);
 });
+
+// === Mostrar/ocultar contraseña (botón ojo) ===
+const togglePwd = document.getElementById('togglePwd');
+const pwdInput  = document.getElementById('passwordInput');
+
+if (togglePwd && pwdInput) {
+  togglePwd.addEventListener('click', () => {
+    const mostrar = pwdInput.type === 'password';
+    pwdInput.type = mostrar ? 'text' : 'password';
+    togglePwd.setAttribute('aria-label', mostrar ? 'Ocultar contraseña' : 'Mostrar contraseña');
+    togglePwd.title = mostrar ? 'Ocultar contraseña' : 'Mostrar contraseña';
+    // (opcional) cambia el ícono
+    togglePwd.textContent = mostrar ? '🙈' : '👁️';
+  });
+}
