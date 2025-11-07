@@ -221,6 +221,12 @@ body.lock { overflow: hidden; }
 .link-muted { color: #8c8c8c; }
 .divider { text-align: center; color: #999; margin: 16px 0; }
 
+/* Seguridad extra: si un elemento tiene .hidden, se oculta sí o sí */
+.splash.hidden,
+.auth.hidden {
+  display: none !important;
+}
+
 
 
 
