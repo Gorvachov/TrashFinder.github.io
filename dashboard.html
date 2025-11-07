@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel — Trash Finder</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <img src="imagenes/logo.png" width="36" height="36" alt="Logo" />
+        <span class="logo-text">TRASH FINDER</span>
+      </div>
+      <div class="nav-buttons">
+        <button id="logoutBtn" class="btn btn-secondary">Cerrar sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 24px 0;">
+    <h2 id="greet">Hola 👋</h2>
+    <p id="meta"></p>
+
+    <!-- Vista para ciudadano -->
+    <section id="view-ciudadano" class="dash-view hidden">
+      <h3>Tu ciudad más limpia</h3>
+      <p>Contenedor más cercano: <strong>150 m</strong> 📍</p>
+      <button class="btn btn-primary">Ver más consejos</button>
+    </section>
+
+    <!-- Vista para recolector -->
+    <section id="view-recolector" class="dash-view hidden">
+      <h3>Panel del recolector</h3>
+      <ul>
+        <li>Contenedores llenos reportados: <strong>3</strong></li>
+        <li>Ruta sugerida: Centro → Norte → Este</li>
+      </ul>
+      <button class="btn btn-primary">Iniciar ruta</button>
+    </section>
+  </main>
+
+  <script src="dashboard.js" defer></script>
+</body>
+</html>

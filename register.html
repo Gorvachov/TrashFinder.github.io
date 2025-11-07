@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crear cuenta — Trash Finder</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <section class="auth" aria-labelledby="reg-title">
+    <div class="auth-card">
+      <img src="imagenes/logo.png" alt="" class="auth-logo" />
+      <h2 class="auth-brand">TRASH FINDER</h2>
+      <h3 id="reg-title" class="auth-welcome">CREA TU CUENTA</h3>
+
+      <form id="registerForm" class="auth-form" autocomplete="on">
+        <label class="field">
+          <span>Usuario</span>
+          <input id="r-username" type="text" required />
+        </label>
+
+        <label class="field">
+          <span>Nombre(s)</span>
+          <input id="r-nombres" type="text" required />
+        </label>
+
+        <label class="field">
+          <span>Apellido Paterno</span>
+          <input id="r-apepat" type="text" required />
+        </label>
+
+        <label class="field">
+          <span>Apellido Materno</span>
+          <input id="r-apemat" type="text" />
+        </label>
+
+        <label class="field">
+          <span>Número de teléfono</span>
+          <input id="r-telefono" type="tel" />
+        </label>
+
+        <label class="field">
+          <span>Correo electrónico</span>
+          <input id="r-email" type="email" required />
+        </label>
+
+        <label class="field password">
+          <span>Contraseña</span>
+          <input id="r-pass" type="password" required />
+          <button id="r-toggle1" class="eye-btn" type="button" aria-label="Mostrar contraseña">👁️</button>
+        </label>
+
+        <label class="field password">
+          <span>Confirmar contraseña</span>
+          <input id="r-pass2" type="password" required />
+          <button id="r-toggle2" class="eye-btn" type="button" aria-label="Mostrar contraseña">👁️</button>
+        </label>
+
+        <label class="field">
+          <span>Tipo de cuenta</span>
+          <select id="r-tipo" required>
+            <option value="ciudadano">Ciudadano</option>
+            <option value="recolector">Recolector</option>
+          </select>
+        </label>
+
+        <button class="btn btn-primary btn-block" type="submit">Registrarme</button>
+        <p class="alt-action" style="margin-top:10px;">¿Ya tienes cuenta?
+          <a class="link" href="login.html">Inicia sesión aquí</a>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <script src="register.js" defer></script>
+</body>
+</html>
