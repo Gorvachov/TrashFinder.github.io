@@ -7,8 +7,10 @@ const me = users.find(u => u.email === sessionEmail);
 if (!me) {
   window.location.href = 'login.html';
 } else {
-  const isCiudadano  = me.tipo === 'ciudadano';
-  const isRecolector = me.tipo === 'recolector';
+  // Normalizamos el tipo para evitar problemas con mayúsculas o espacios
+  const tipo = (me.tipo || '').toString().trim().toLowerCase();
+  const isCiudadano  = tipo === 'ciudadano';
+  const isRecolector = tipo === 'recolector';
 
   // Muestra solo la vista que corresponde
   const vCiudadano  = document.getElementById('view-ciudadano');
@@ -67,3 +69,4 @@ if (!me) {
     window.location.href = 'login.html';
   });
 }
+
