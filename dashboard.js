@@ -1,124 +1,88 @@
-// Lee usuarios y sesión
+// --- Utils ---
+const log = (...a) => console.log('[dashboard]', ...a);
+
+// Carga de datos
 const users = JSON.parse(localStorage.getItem('tf_users') || '[]');
 const sessionEmail = localStorage.getItem('tf_session');
 const me = users.find(u => u.email === sessionEmail);
 
-// Si no hay sesión, vuelve a login
 if (!me) {
+  log('No hay sesión, regreso a login');
   window.location.href = 'login.html';
 } else {
-  // Normaliza una etiqueta de tipo quitando tildes, espacios extra y mayúsculas
-  const canNormalize = typeof String.prototype.normalize === 'function';
-  const normalizeType = (value) => {
-    if (value == null) return '';
-    let str = value.toString();
-    if (canNormalize) {
-      str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    }
-    return str.replace(/\s+/g, ' ').trim().toLowerCase();
-  };
+  log('Usuario en sesión:', me);
 
-  const firstNonEmpty = (...values) => {
-    for (const value of values) {
-      if (value == null) continue;
-      const str = value.toString();
-      if (str.trim() !== '') return value;
-    }
-    return '';
-  };
-
-  // Buscamos distintos posibles nombres usados para el rol
-  const rawTipo = firstNonEmpty(
-    me.tipo,
-    me.rol,
-    me.role,
-    me.accountType,
-    me.userType,
-    me.perfil,
-    me.profile
-  );
-
-  const tipoNormalizado = normalizeType(rawTipo);
-  const tipoNumero = Number.isFinite(me.tipo)
-    ? Number(me.tipo)
-    : Number.parseInt(tipoNormalizado, 10);
-
-  let isRecolector =
-    /recolect/.test(tipoNormalizado) ||
-    me.esRecolector === true ||
-    me.isCollector === true ||
-    tipoNumero === 2;
-
-  let isCiudadano =
-    /ciudadan/.test(tipoNormalizado) ||
-    me.esRecolector === false ||
-    me.isCollector === false ||
-    tipoNumero === 1;
-
-  // Muestra solo la vista que corresponde (y evita dejar la pantalla en blanco)
   const vCiudadano  = document.getElementById('view-ciudadano');
   const vRecolector = document.getElementById('view-recolector');
 
+  // --- 1) Detección de tipo de usuario (simple + robusta) ---
+  const rawTipo = String(
+    me.tipo ?? me.rol ?? me.role ?? me.userType ?? me.accountType ?? ''
+  ).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  let isRecolector =
+    rawTipo.includes('reco') || me.isCollector === true || me.esRecolector === true || Number(rawTipo) === 2;
+  let isCiudadano  =
+    rawTipo.includes('ciud') || me.isCollector === false || me.esRecolector === false || Number(rawTipo) === 1;
+
+  // Si no reconocemos el tipo, mostramos ALGO por defecto (recolector si existe)
   if (!isRecolector && !isCiudadano) {
-    if (!tipoNormalizado && vRecolector && !vCiudadano) {
-      isRecolector = true;
-    } else if (!tipoNormalizado && vCiudadano) {
-      isCiudadano = true;
-    }
+    isRecolector = !!vRecolector; // si existe la vista de recolector, muéstrala
+    log('Tipo no reconocido, forzando vista por defecto → recolector:', isRecolector);
   }
 
-  vCiudadano?.classList.toggle('hidden', !isCiudadano);
-  vRecolector?.classList.toggle('hidden', !isRecolector);
+  log({ rawTipo, isRecolector, isCiudadano });
 
-  // (Opcional) Saludo genérico si todavía tienes #greet / #meta en tu HTML
+  // --- 2) Mostrar/ocultar vistas ---
+  vRecolector?.classList.toggle('hidden', !isRecolector);
+  vCiudadano ?.classList.toggle('hidden', !isCiudadano);
+
+  // (Si aún ambas quedaron ocultas, pinta un mensaje para que lo veas)
+  if ((vRecolector && vRecolector.classList.contains('hidden')) &&
+      (vCiudadano  && vCiudadano .classList.contains('hidden'))) {
+    document.body.insertAdjacentHTML('beforeend',
+      '<div style="padding:12px;color:#b00;font-weight:700">⚠️ Ninguna vista visible. Revisa el tipo de usuario y los IDs.</div>');
+    log('Ambas vistas siguen ocultas: revisa IDs/HTML o el tipo guardado en localStorage.');
+  }
+
+  // --- 3) Vista RECOLECTOR: saludo + fecha + resumen ---
+  if (isRecolector && vRecolector) {
+    const nombre = me.nombres || me.username || 'Recolector';
+
+    const titulo = document.getElementById('collector-name');
+    if (titulo) titulo.textContent = `Hola, ${nombre} 👋`;
+
+    const hoy = new Date();
+    const opts = { day: '2-digit', month: 'short', year: 'numeric' };
+    let fecha = hoy.toLocaleDateString('es-ES', opts).replace('.', '');
+    const parts = fecha.split(' ');
+    if (parts[1]) parts[1] = parts[1][0].toUpperCase() + parts[1].slice(1);
+    fecha = parts.join(' ');
+
+    const meta = document.getElementById('collector-meta');
+    if (meta) meta.innerHTML = `Turno: Mañana | Fecha: ${fecha}`;
+
+    const stats = me.stats || { rutas: 3, tachosAtendidos: 27, tachosTotal: 45, alertas: 2, progreso: 0.6 };
+    const pct = typeof stats.progreso === 'number'
+      ? Math.round(stats.progreso * 100)
+      : Math.round((stats.tachosAtendidos / Math.max(stats.tachosTotal || 1, 1)) * 100);
+
+    const $ = id => document.getElementById(id);
+    $('sum-rutas')    && ($('sum-rutas').textContent    = String(stats.rutas));
+    $('sum-tachos')   && ($('sum-tachos').textContent   = `${stats.tachosAtendidos}/${stats.tachosTotal}`);
+    $('sum-alertas')  && ($('sum-alertas').textContent  = String(stats.alertas));
+    $('sum-progreso') && ($('sum-progreso').textContent = `${pct}%`);
+  }
+
+  // --- 4) Saludo genérico si aún mantienes #greet / #meta ---
   document.getElementById('greet')?.textContent =
     `Hola, ${me.nombres || me.username || ''} 👋`;
   document.getElementById('meta')?.innerHTML =
     `Tienes <strong>${me.puntos ?? 0}</strong> puntos acumulados 🌱`;
 
-  // ----- Vista RECOLECTOR -----
-  if (isRecolector && vRecolector) {
-    // 1) Saludo con nombre
-    const nombre = me.nombres || me.username || 'Recolector';
-    const elTitulo = document.getElementById('collector-name');
-    elTitulo && (elTitulo.textContent = `Hola, ${nombre} 👋`);
-
-    // 2) Fecha de HOY "28 Oct 2025"
-    const hoy = new Date();
-    const opciones = { day: '2-digit', month: 'short', year: 'numeric' };
-    let fecha = hoy.toLocaleDateString('es-ES', opciones).replace('.', '');
-    // capitaliza el mes (oct -> Oct)
-    const parts = fecha.split(' ');
-    if (parts[1]) parts[1] = parts[1][0].toUpperCase() + parts[1].slice(1);
-    fecha = parts.join(' ');
-    const elMeta = document.getElementById('collector-meta');
-    elMeta && (elMeta.innerHTML = `Turno: Mañana | Fecha: ${fecha}`);
-
-    // 3) Resumen del día (mock / o desde me.stats)
-    const stats = me.stats || {
-      rutas: 3,
-      tachosAtendidos: 27,
-      tachosTotal: 45,
-      alertas: 2,
-      progreso: 0.6, // 0–1
-    };
-
-    const pct =
-      typeof stats.progreso === 'number'
-        ? Math.round(stats.progreso * 100)
-        : Math.round((stats.tachosAtendidos / Math.max(stats.tachosTotal || 1, 1)) * 100);
-
-    const $ = (id) => document.getElementById(id);
-    $('sum-rutas')    &&  ($('sum-rutas').textContent = String(stats.rutas));
-    $('sum-tachos')   &&  ($('sum-tachos').textContent = `${stats.tachosAtendidos}/${stats.tachosTotal}`);
-    $('sum-alertas')  &&  ($('sum-alertas').textContent = String(stats.alertas));
-    $('sum-progreso') &&  ($('sum-progreso').textContent = `${pct}%`);
-  }
-
-  // Cerrar sesión
+  // --- 5) Logout ---
   document.getElementById('logoutBtn')?.addEventListener('click', () => {
     localStorage.removeItem('tf_session');
     window.location.href = 'login.html';
   });
 }
-
