@@ -7,12 +7,67 @@ const me = users.find(u => u.email === sessionEmail);
 if (!me) {
   window.location.href = 'login.html';
 } else {
-  const isCiudadano  = me.tipo === 'ciudadano';
-  const isRecolector = me.tipo === 'recolector';
+  // Normaliza una etiqueta de tipo quitando tildes, espacios extra y mayúsculas
+  const normalizeType = (value) => {
+    if (value == null) return '';
+    return value
+      .toString()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+  };
 
-  // Muestra solo la vista que corresponde
+  const firstNonEmpty = (...values) => {
+    for (const value of values) {
+      if (value == null) continue;
+      const str = value.toString();
+      if (str.trim() !== '') return value;
+    }
+    return '';
+  };
+
+  // Buscamos distintos posibles nombres usados para el rol
+  const rawTipo = firstNonEmpty(
+    me.tipo,
+    me.rol,
+    me.role,
+    me.accountType,
+    me.userType,
+    me.perfil,
+    me.profile
+  );
+
+  const tipoNormalizado = normalizeType(rawTipo);
+  const tipoNumero = Number.isFinite(me.tipo)
+    ? Number(me.tipo)
+    : Number.parseInt(tipoNormalizado, 10);
+
+  let isRecolector =
+    /recolect/.test(tipoNormalizado) ||
+    me.esRecolector === true ||
+    me.isCollector === true ||
+    tipoNumero === 2;
+
+  let isCiudadano =
+    /ciudadan/.test(tipoNormalizado) ||
+    me.esRecolector === false ||
+    me.isCollector === false ||
+    tipoNumero === 1;
+
+  // Muestra solo la vista que corresponde (y evita dejar la pantalla en blanco)
   const vCiudadano  = document.getElementById('view-ciudadano');
   const vRecolector = document.getElementById('view-recolector');
+
+  if (!isRecolector && !isCiudadano) {
+    if (!tipoNormalizado && vRecolector && !vCiudadano) {
+      isRecolector = true;
+    } else if (!tipoNormalizado && vCiudadano) {
+      isCiudadano = true;
+    }
+  }
+
   vCiudadano?.classList.toggle('hidden', !isCiudadano);
   vRecolector?.classList.toggle('hidden', !isRecolector);
 
