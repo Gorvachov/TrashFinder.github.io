@@ -322,3 +322,55 @@ body.lock { overflow: hidden; }
     gap: 6px;
   }
 }
+
+/* ===== Dashboard (recolector) ===== */
+.dashboard{ padding: 1.5rem 0 2.5rem; }
+.dash-view.hidden{ display: none !important; }
+
+.dash-header{ margin-bottom: 1.25rem; }
+.dash-logo-row{ display:flex; align-items:center; gap:.5rem; margin-bottom:.5rem; }
+.dash-logo{ width:32px; height:auto; }
+.dash-brand{
+  font-weight:800; font-size:.95rem; letter-spacing:.08em;
+  color: var(--green-primary);
+}
+
+.dash-title{ font-size:1.5rem; font-weight:800; }
+.dash-meta{ font-size:.9rem; color: var(--gray); }
+
+.dash-section{ margin-bottom:1rem; }
+.dash-section-header{
+  display:flex; justify-content:space-between; align-items:center;
+  font-weight:600; font-size:.95rem; margin-bottom:.5rem;
+}
+.dash-link{ background:none; border:0; color:#8c8c8c; font-size:.85rem; cursor:pointer; }
+
+.dash-card{
+  background:#fff; border-radius:16px; box-shadow: var(--shadow-2);
+  padding:.9rem 1rem; margin-bottom:.6rem;
+}
+
+.dash-summary{ display:flex; justify-content:space-between; align-items:center; }
+.dash-summary-list{ list-style:none; font-size:.9rem; }
+.dash-summary-list li + li{ margin-top:.25rem; }
+
+.dash-progress{
+  width:72px; height:72px; border-radius:50%;
+  border:6px solid var(--orange);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:.95rem; color:var(--orange);
+}
+
+.dash-route{ display:flex; justify-content:space-between; align-items:center; }
+.dash-route-title{ font-weight:600; font-size:.95rem; }
+.dash-route-meta{ font-size:.85rem; color:var(--gray); }
+.dash-small-btn{ padding:.4rem .9rem; border-radius:999px; font-size:.85rem; }
+
+/* Imagen del ciudadano responsive */
+#view-ciudadano img{ max-width:100%; height:auto; }
+
+@media (max-width:480px){
+  .dashboard{ padding-inline:12px; }
+  .dash-card{ border-radius:14px; padding:.8rem .85rem; }
+  .dash-progress{ width:64px; height:64px; border-width:5px; }
+}
