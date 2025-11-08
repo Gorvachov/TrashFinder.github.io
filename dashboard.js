@@ -35,7 +35,7 @@ if (!me) {
 
   // --- 2) Mostrar/ocultar vistas ---
   vRecolector?.classList.toggle('hidden', !isRecolector);
-  vCiudadano ?.classList.toggle('hidden', !isCiudadano);
+  vCiudadano?.classList.toggle('hidden', !isCiudadano);
 
   // (Si aún ambas quedaron ocultas, pinta un mensaje para que lo veas)
   if ((vRecolector && vRecolector.classList.contains('hidden')) &&
@@ -86,3 +86,4 @@ if (!me) {
     window.location.href = 'login.html';
   });
 }
+
