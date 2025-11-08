@@ -262,5 +262,63 @@ body.lock { overflow: hidden; }
   color: var(--gray);
 }
 
+/* ===== Registro a pantalla completa en móvil ===== */
+@media (max-width: 480px){
+  /* Solo las páginas que tengan .auth.auth--full (registro) */
+  .auth.auth--full{
+    padding: 0;
+  }
 
+  .auth.auth--full .auth-card{
+    width: 100%;
+    height: 100dvh;         /* ocupa toda la altura del móvil */
+    max-width: none;
+    border-radius: 0;       /* sin esquinas redondeadas → pantalla completa */
+    padding: 16px 16px 12px;
+    display: flex;
+    flex-direction: column;
+  }
 
+  .auth-header{
+    margin-bottom: 0.75rem;
+  }
+  .auth-logo{
+    width: 48px;
+    margin-bottom: 0.3rem;
+  }
+  .auth-brand{
+    font-size: 0.95rem;
+  }
+  .auth-welcome{
+    font-size: 1.2rem;
+  }
+  .auth-caption{
+    font-size: 0.9rem;
+  }
+
+  .field{
+    margin-bottom: 10px;
+  }
+  .field input,
+  .field select{
+    padding: 8px 36px 6px 8px;
+  }
+
+  /* El formulario puede scrollear un poquito por dentro si hace falta */
+  .auth.auth--full .auth-form{
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 8px;
+  }
+
+  .btn-block{
+    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .form-row{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
