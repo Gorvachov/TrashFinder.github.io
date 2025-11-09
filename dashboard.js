@@ -46,7 +46,36 @@ if (!me) {
     log('Ambas vistas siguen ocultas: revisa IDs/HTML o el tipo guardado en localStorage.');
   }
 
-  // --- 3) Vista RECOLECTOR: saludo + fecha + resumen ---
+  // --- 3) Vista CIUDADANO: saludo + fecha + resumen ---
+  if (isCiudadano && vCiudadano) {
+    const nombre = me.nombres || me.username || 'Ciudadano';
+
+    const titulo = document.getElementById('citizen-name');
+    if (titulo) titulo.textContent = `Hola, ${nombre} 👋`;
+/*
+    const hoy = new Date();
+    const opts = { day: '2-digit', month: 'short', year: 'numeric' };
+    let fecha = hoy.toLocaleDateString('es-ES', opts).replace('.', '');
+    const parts = fecha.split(' ');
+    if (parts[1]) parts[1] = parts[1][0].toUpperCase() + parts[1].slice(1);
+    fecha = parts.join(' ');
+
+    const meta = document.getElementById('collector-meta');
+    if (meta) meta.innerHTML = `Turno: Mañana | Fecha: ${fecha}`;
+
+    const stats = me.stats || { rutas: 3, tachosAtendidos: 27, tachosTotal: 45, alertas: 2, progreso: 0.6 };
+    const pct = typeof stats.progreso === 'number'
+      ? Math.round(stats.progreso * 100)
+      : Math.round((stats.tachosAtendidos / Math.max(stats.tachosTotal || 1, 1)) * 100);
+
+    const $ = id => document.getElementById(id);
+    $('sum-rutas')    && ($('sum-rutas').textContent    = String(stats.rutas));
+    $('sum-tachos')   && ($('sum-tachos').textContent   = `${stats.tachosAtendidos}/${stats.tachosTotal}`);
+    $('sum-alertas')  && ($('sum-alertas').textContent  = String(stats.alertas));
+    $('sum-progreso') && ($('sum-progreso').textContent = `${pct}%`);*/
+  }
+
+// --- 4) Vista RECOLECTOR: saludo + fecha + resumen ---
   if (isRecolector && vRecolector) {
     const nombre = me.nombres || me.username || 'Recolector';
 
@@ -75,7 +104,8 @@ if (!me) {
     $('sum-progreso') && ($('sum-progreso').textContent = `${pct}%`);
   }
 
-  // --- 4) Saludo genérico si aún mantienes #greet / #meta ---
+  
+  // --- 5) Saludo genérico si aún mantienes #greet / #meta ---
   const greetEl = document.getElementById('greet');
   if (greetEl) {
     greetEl.textContent = `Hola, ${me.nombres || me.username || ''} 👋`;
@@ -87,12 +117,13 @@ if (!me) {
   }
 
 
-  // --- 5) Logout ---
+  // --- 6) Logout ---
   document.getElementById('logoutBtn')?.addEventListener('click', () => {
     localStorage.removeItem('tf_session');
     window.location.href = 'login.html';
   });
 }
+
 
 
 
