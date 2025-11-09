@@ -362,9 +362,10 @@ body.lock { overflow: hidden; }
 }
 
 .dash-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #27ae60, #2ecc71);
-  transition: width 0.4s ease;
+  width:360px; height:36px;
+  border:6px solid var(--orange);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:.95rem; color:var(--orange);
 }
 
 .dash-route{ display:flex; justify-content:space-between; align-items:center; }
@@ -381,3 +382,4 @@ body.lock { overflow: hidden; }
   .dash-progress{ width:64px; height:64px; border-width:5px; }
   .dash-progress-bar{ width:64px; height:64px; border-width:5px; }
 }
+
