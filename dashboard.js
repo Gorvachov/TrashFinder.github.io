@@ -53,7 +53,7 @@ if (!me) {
     const titulo = document.getElementById('citizen-name');
     if (titulo) titulo.textContent = `Hola, ${nombre} 👋`;
 
-    const stats = me.stats || { basuraEvitada: 23, rachaDias: 4, nivel: EcoNovato, progreso: 0.45 };
+    const stats = me.stats || { basuraEvitada: "23", rachaDias: "4", nivel: "EcoNovato", progreso: "0.45" };
     const pct = typeof stats.progreso === 'number'
       ? Math.round(stats.progreso * 100)
 
@@ -112,6 +112,7 @@ if (!me) {
     window.location.href = 'login.html';
   });
 }
+
 
 
 
