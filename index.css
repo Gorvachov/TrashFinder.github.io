@@ -380,6 +380,7 @@ body.lock { overflow: hidden; }
   .dashboard{ padding-inline:12px; }
   .dash-card{ border-radius:14px; padding:.8rem .85rem; }
   .dash-progress{ width:64px; height:64px; border-width:5px; }
-  .dash-progress-bar{ width:64px; height:64px; border-width:5px; }
+  .dash-progress-bar{ width:640px; height:64px; border-width:5px; }
 }
+
 
