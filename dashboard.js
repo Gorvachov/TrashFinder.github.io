@@ -69,9 +69,9 @@ if (!me) {
       : Math.round((stats.tachosAtendidos / Math.max(stats.tachosTotal || 1, 1)) * 100);
 
     const $ = id => document.getElementById(id);
-    $('sum-rutas')    && ($('sum-rutas').textContent    = String(stats.rutas));
-    $('sum-tachos')   && ($('sum-tachos').textContent   = `${stats.tachosAtendidos}/${stats.tachosTotal}`);
-    $('sum-alertas')  && ($('sum-alertas').textContent  = String(stats.alertas));
+    $('kg-basura-evitada')    && ($('kg-basura-evitada').textContent    = String(stats.basuraEvitada));
+    $('racha-dias')   && ($('racha-dias').textContent   = `${stats.tachosAtendidos}/${stats.tachosTotal}`);
+    $('nivel')  && ($('nivel').textContent  = String(stats.alertas));
     $('sum-progreso') && ($('sum-progreso').textContent = `${pct}%`);*/
   }
 
@@ -123,6 +123,7 @@ if (!me) {
     window.location.href = 'login.html';
   });
 }
+
 
 
 
