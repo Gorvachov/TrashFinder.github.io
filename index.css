@@ -361,6 +361,12 @@ body.lock { overflow: hidden; }
   font-weight:700; font-size:.95rem; color:var(--orange);
 }
 
+.dash-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  transition: width 0.4s ease;
+}
+
 .dash-route{ display:flex; justify-content:space-between; align-items:center; }
 .dash-route-title{ font-weight:600; font-size:.95rem; }
 .dash-route-meta{ font-size:.85rem; color:var(--gray); }
@@ -373,27 +379,5 @@ body.lock { overflow: hidden; }
   .dashboard{ padding-inline:12px; }
   .dash-card{ border-radius:14px; padding:.8rem .85rem; }
   .dash-progress{ width:64px; height:64px; border-width:5px; }
-}
-
-/* Para la barra de progreso*/
-.progress-container {
-  width: 100%;
-  height: 16px;
-  background: #e4e4e4;
-  border-radius: 12px;
-  overflow: hidden;
-  margin: 8px 0;
-}
-
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #27ae60, #2ecc71);
-  transition: width 0.4s ease;
-}
-
-.progress-label {
-  font-size: 0.9rem;
-  color: #333;
-  margin-top: 4px;
-  text-align: right;
+  .dash-progress-bar{ width:64px; height:64px; border-width:5px; }
 }
