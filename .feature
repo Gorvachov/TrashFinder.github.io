@@ -1,4 +1,3 @@
-
 @HU-052 @EP-07 @LandingPage
 
 Feature: Primer Acercamiento a la App
