@@ -22,7 +22,7 @@ Edades: Adultos (mayores de 18 años)
 Nivel socioeconómico: Alto, medio y bajo
 
 Características principales:
-## 3. Principales características de la solución digital
+## Principales características de la solución digital
 
 ### Para ciudadanos
 * Visualización del mapa de contenedores inteligentes cercanos.
