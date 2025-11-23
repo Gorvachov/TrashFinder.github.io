@@ -45,6 +45,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--green-primary);
 .btn-secondary { background: transparent; color: var(--dark); border-color: var(--light-gray); }
 .btn-secondary:hover { background: var(--light-gray); }
 .btn-large { padding: 1rem 2.5rem; font-size: 1.1rem; }
+.btn-terciary {background: var(--orange); color: #fff}
+.btn-terciary:hover { background: var(--orange-light); }
 
 .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
 .mobile-menu-btn span { width: 26px; height: 3px; background: var(--dark); transition: transform .3s, opacity .3s; border-radius: 2px; }
@@ -413,6 +415,7 @@ body.lock { overflow: hidden; }
   top: 80%;
   left: 80%;
 }
+
 
 
 
