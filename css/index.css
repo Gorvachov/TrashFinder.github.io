@@ -385,7 +385,7 @@ body.lock { overflow: hidden; }
   .dash-progress{ width:64px; height:64px; border-width:5px; }
   .dash-progress-bar{ width:640px; height:64px; border-width:5px; }
 }
-/* Para el mapa de contenedores */
+/* A partir de aquí son las configuraciones para el mapa de contenedores */
 .map-container {
   position: relative;
   display: inline-block;
@@ -415,7 +415,7 @@ body.lock { overflow: hidden; }
   top: 80%;
   left: 80%;
 }
-
+/*Hasta aquí son las configuraciones para el mapa de contenedores*/
 .tacho-estado {
   margin: 20px;
   padding: 15px;
@@ -437,6 +437,7 @@ body.lock { overflow: hidden; }
   padding: 8px;
   border-radius: 6px;
 }
+
 
 
 
