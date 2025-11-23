@@ -362,6 +362,27 @@ function verificarProximidad() {
 setInterval(verificarProximidad, 30000);
 
 
+function actualizarUsoApp() {
+  localStorage.setItem("ultimaActividadTF", new Date().getTime());
+}
+
+actualizarUsoApp();
+
+function verificarInactividad() {
+  const ultima = localStorage.getItem("ultimaActividadTF");
+
+  if (!ultima) return;
+
+  const ahora = new Date().getTime();
+  const cincoDias = 5 * 24 * 60 * 60 * 1000;
+
+  if (ahora - ultima > cincoDias) {
+    new Notification("Recuerda que cada acción cuenta, ¡ayuda a mantener limpia tu ciudad! 🌱");
+  }
+}
+
+verificarInactividad();
+
 
 
 
