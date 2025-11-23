@@ -50,39 +50,38 @@ if (!me) {
   if (isCiudadano && vCiudadano) {
     const nombre = me.nombres || me.username || 'Ciudadano';
 // ===============================
-// HU-016 – Canje de puntos por beneficios (SEGURO)
+// HU-016 – Canje de puntos por beneficios
 // ===============================
 
-try {
-  if (!me.puntos || me.puntos <= 0) {
-    me.puntos = 80;
-    localStorage.setItem('tf_users', JSON.stringify(users));
-  }
+if (typeof me.puntos === 'undefined') {
+  me.puntos = 80; // valor por defecto para demo
+}
 
-  const puntosSpan = document.getElementById("puntos");
+// Mostrar puntos actuales
+const puntosSpan = document.getElementById("puntos");
+if (puntosSpan) {
+  puntosSpan.textContent = me.puntos;
+}
+
+// Función global para el botón
+window.canjearBeneficio = function () {
   const mensaje = document.getElementById("mensajeCanje");
 
-  if (puntosSpan) {
-    puntosSpan.textContent = me.puntos;
+  if (me.puntos >= 100) {
+    me.puntos -= 100;
+
+    if (puntosSpan) puntosSpan.textContent = me.puntos;
+
+    // Guardar cambios en localStorage
+    localStorage.setItem('tf_users', JSON.stringify(users));
+
+    mensaje.textContent = "✅ Canje realizado con éxito";
+    mensaje.style.color = "green";
+  } else {
+    mensaje.textContent = "❌ No tienes puntos suficientes para canjear";
+    mensaje.style.color = "red";
   }
-
-  window.canjearBeneficio = function () {
-    if (!mensaje || !puntosSpan) return;
-
-    if (me.puntos >= 100) {
-      me.puntos -= 100;
-      puntosSpan.textContent = me.puntos;
-      localStorage.setItem('tf_users', JSON.stringify(users));
-      mensaje.textContent = "✅ Canje realizado con éxito";
-      mensaje.style.color = "green";
-    } else {
-      mensaje.textContent = "❌ No tienes puntos suficientes para canjear";
-      mensaje.style.color = "red";
-    }
-  };
-} catch (error) {
-  console.error("Error HU-016:", error);
-}
+};
 
     const titulo = document.getElementById('citizen-name');
     if (titulo) titulo.textContent = `Hola, ${nombre} 👋`;
@@ -265,6 +264,7 @@ try {
     window.location.href = 'login.html';
   });
 }
+
 
 
 
