@@ -53,8 +53,8 @@ if (!me) {
 // HU-016 – Canje de puntos por beneficios
 // ===============================
 
-if (typeof me.puntos === 'undefined') {
-  me.puntos = 150; // valor por defecto para demo
+if (!me.puntos || me.puntos <= 0) {
+  me.puntos = 80; // valor demo inicial
 }
 
 // Mostrar puntos en pantalla si existe el span
@@ -264,6 +264,7 @@ window.canjearBeneficio = function () {
     window.location.href = 'login.html';
   });
 }
+
 
 
 
