@@ -49,37 +49,7 @@ if (!me) {
   // --- 3) Vista CIUDADANO: saludo + fecha + resumen ---
   if (isCiudadano && vCiudadano) {
     const nombre = me.nombres || me.username || 'Ciudadano';
-// ===============================
-// HU-016 – Canje de puntos por beneficios
-// ===============================
 
-if (!me.puntos || me.puntos <= 0) {
-  me.puntos = 80;
-}
-
-// Mostrar puntos en el panel
-const puntosSpan = document.getElementById("puntos");
-if (puntosSpan) {
-  puntosSpan.textContent = me.puntos;
-}
-
-// Función del botón
-window.canjearBeneficio = function () {
-  const mensaje = document.getElementById("mensajeCanje");
-
-  if (me.puntos >= 100) {
-    me.puntos -= 100;
-
-    puntosSpan.textContent = me.puntos;
-    localStorage.setItem('tf_users', JSON.stringify(users));
-
-    mensaje.textContent = "✅ Canje realizado con éxito";
-    mensaje.style.color = "green";
-  } else {
-    mensaje.textContent = "❌ No tienes puntos suficientes para canjear";
-    mensaje.style.color = "red";
-  }
-};
     const titulo = document.getElementById('citizen-name');
     if (titulo) titulo.textContent = `Hola, ${nombre} 👋`;
 /*
@@ -261,6 +231,7 @@ window.canjearBeneficio = function () {
     window.location.href = 'login.html';
   });
 }
+
 
 
 
