@@ -265,6 +265,42 @@ window.canjearBeneficio = function () {
   });
 }
 
+// ===============================
+// HU-017 – Compartir logros en redes sociales
+// ===============================
+
+function compartirLogro() {
+  const mensaje = document.getElementById("mensajeCompartir");
+
+  const textoLogro = "🏅 Logro obtenido: Héroe del barrio - Completé 3 depósitos esta semana gracias a TrashFinder ♻️";
+
+  // Verificar conexión
+  if (!navigator.onLine) {
+    mensaje.textContent = "❌ Sin conexión: se intentará compartir luego.";
+    mensaje.style.color = "red";
+    localStorage.setItem("pendienteCompartir", textoLogro);
+    return;
+  }
+
+  // Si el navegador soporta compartir
+  if (navigator.share) {
+    navigator.share({
+      title: "Mi logro en TrashFinder",
+      text: textoLogro,
+      url: window.location.href
+    }).then(() => {
+      mensaje.textContent = "✅ Logro compartido exitosamente";
+      mensaje.style.color = "green";
+    }).catch(() => {
+      mensaje.textContent = "❌ Error al compartir el logro";
+      mensaje.style.color = "red";
+    });
+  } else {
+    mensaje.textContent = "⚠️ Tu navegador no soporta compartir automático";
+    mensaje.style.color = "orange";
+  }
+}
+
 
 
 
