@@ -63,8 +63,22 @@
             <p class="dash-achievement-title">🏅Nuevo logro "Héroe del barrio"</p>
             <p class="dash-achievement-meta">🎖️Completaste 3 depósitos esta semana</p>
           </div>
-        </article>
-      </section>
+        <!-- ✅ HU-016 Canje de puntos por beneficios -->
+<section class="dash-section">
+  <div class="dash-section-header">
+    <span>🎁 Canje de puntos</span>
+  </div>
+
+  <article class="dash-card">
+    <p>Puntos disponibles: <strong><span id="puntos">80</span></strong></p>
+
+    <button class="btn btn-primary" onclick="canjearBeneficio()">
+      Canjear 100 puntos
+    </button>
+
+    <p id="mensajeCanje" style="margin-top:10px;"></p>
+  </article>
+</section>
     </section>
 
   <!-- Vista para recolector -->
@@ -165,6 +179,7 @@
   <script src="js/dashboard.js" defer></script>
 </body>
 </html>
+
 
 
 

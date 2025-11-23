@@ -11,16 +11,43 @@
         <img src="img/mapa_localizacion.jpg" class="map-img" alt="Mapa de Localizacion">
 
         <!-- Icono real en la posición -->
-        <img class="icon container1" src="img/icono_contenedor.png" alt="Contenedor">
-        <img class="icon container2" src="img/icono_contenedor.png" alt="Contenedor">
-        <img class="icon container3" src="img/icono_contenedor.png" alt="Contenedor">
+        <img class="icon container1" src="img/icono_contenedor.png" alt="Contenedor" onclick="cambiarEstado()">
+        <img class="icon container2" src="img/icono_contenedor.png" alt="Contenedor" onclick="cambiarEstado()">
+        <img class="icon container3" src="img/icono_contenedor.png" alt="Contenedor" onclick="cambiarEstado()">
         </div>
         <p> Contenedor más cercano: 150 m</p>
+       <div class="tacho-estado">
+    <h3>Estado del contenedor seleccionado</h3>
+    <p id="estadoTacho" class="lleno">Tacho lleno</p>
+    <button onclick="cambiarEstado()">Simular cambio</button>
+  </div> 
         <div class="map-actions">
           <a class="link">
           <button class="btn btn-terciary btn-large" type ="button"> ¿Cómo llegar?</button>
           <button class="btn btn-secondary btn-large" type ="button"> Reportar problema</button>
           </a>
         </div>
+             <script>
+let lleno = true;
+
+function cambiarEstado() {
+  const estado = document.getElementById("estadoTacho");
+
+  if (lleno) {
+    estado.textContent = "Tacho lleno";
+    estado.className = "lleno";
+  } else {
+    estado.textContent = "Aún hay espacio en el tacho";
+    estado.className = "disponible";
+  }
+
+  lleno = !lleno;
+}
+</script>
+
       </body>
 </html>
+
+
+
+
