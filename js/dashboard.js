@@ -49,6 +49,40 @@ if (!me) {
   // --- 3) Vista CIUDADANO: saludo + fecha + resumen ---
   if (isCiudadano && vCiudadano) {
     const nombre = me.nombres || me.username || 'Ciudadano';
+// ===============================
+// HU-016 – Canje de puntos por beneficios (SEGURO)
+// ===============================
+
+try {
+  if (!me.puntos || me.puntos <= 0) {
+    me.puntos = 80;
+    localStorage.setItem('tf_users', JSON.stringify(users));
+  }
+
+  const puntosSpan = document.getElementById("puntos");
+  const mensaje = document.getElementById("mensajeCanje");
+
+  if (puntosSpan) {
+    puntosSpan.textContent = me.puntos;
+  }
+
+  window.canjearBeneficio = function () {
+    if (!mensaje || !puntosSpan) return;
+
+    if (me.puntos >= 100) {
+      me.puntos -= 100;
+      puntosSpan.textContent = me.puntos;
+      localStorage.setItem('tf_users', JSON.stringify(users));
+      mensaje.textContent = "✅ Canje realizado con éxito";
+      mensaje.style.color = "green";
+    } else {
+      mensaje.textContent = "❌ No tienes puntos suficientes para canjear";
+      mensaje.style.color = "red";
+    }
+  };
+} catch (error) {
+  console.error("Error HU-016:", error);
+}
 
     const titulo = document.getElementById('citizen-name');
     if (titulo) titulo.textContent = `Hola, ${nombre} 👋`;
@@ -231,6 +265,7 @@ if (!me) {
     window.location.href = 'login.html';
   });
 }
+
 
 
 
