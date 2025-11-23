@@ -314,6 +314,53 @@ function compartirLogro() {
   }
 }
 
+// Solicitar permisos para notificaciones
+if ("Notification" in window) {
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
+}
+
+const contenedor = {
+  lat: -12.0775,  // ejemplo San Miguel
+  lng: -77.0822
+};
+
+function distanciaEnMetros(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+function verificarProximidad() {
+  if (!navigator.geolocation) return;
+
+  navigator.geolocation.getCurrentPosition(pos => {
+    const { latitude, longitude } = pos.coords;
+
+    const distancia = distanciaEnMetros(
+      latitude,
+      longitude,
+      contenedor.lat,
+      contenedor.lng
+    );
+
+    if (distancia <= 50) {
+      new Notification("¡Tienes un contenedor cercano! ♻️");
+    }
+  });
+}
+
+// Verifica cada 30 segundos
+setInterval(verificarProximidad, 30000);
+
 
 
 
