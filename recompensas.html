@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recompensas — Trash Finder</title>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <img src="img/logo.png" width="36" height="36" alt="Logo Trash Finder" />
+        <span class="logo-text">TRASH FINDER</span>
+      </div>
+
+      <div class="nav-buttons">
+        <a href="dashboard.html">
+          <button class="btn btn-secondary">Volver al panel</button>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard container">
+
+    <header class="dash-header">
+      <h1 class="dash-title">🎁 Recompensas</h1>
+      <p class="dash-meta">Canjea tus puntos por beneficios exclusivos</p>
+    </header>
+
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <span>💰 Tus puntos</span>
+      </div>
+
+      <article class="dash-card dash-summary">
+        <ul class="dash-summary-list">
+          <li>Puntos acumulados: <span id="total-puntos">320</span></li>
+          <li>Progreso mensual: <span id="progreso-mensual">45%</span></li>
+        </ul>
+
+        <div class="dash-progress">
+          <span class="dash-progress-number">45%</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <span>🏆 Recompensas disponibles</span>
+      </div>
+
+      <article class="dash-card dash-route">
+        <div>
+          <p class="dash-route-title">Descuento 20% en Tay Loy</p>
+          <p class="dash-route-meta">Costo: 150 puntos</p>
+        </div>
+        <button class="btn btn-outline dash-small-btn canjear-btn" data-cost="150">Canjear</button>
+      </article>
+
+      <article class="dash-card dash-route">
+        <div>
+          <p class="dash-route-title">Cupón para un Starbucks</p>
+          <p class="dash-route-meta">Costo: 220 puntos</p>
+        </div>
+        <button class="btn btn-outline dash-small-btn canjear-btn" data-cost="220">Canjear</button>
+      </article>
+
+      <article class="dash-card dash-route">
+        <div>
+          <p class="dash-route-title">Descuento de 10% en Frutix</p>
+          <p class="dash-route-meta">Costo: 50 puntos</p>
+        </div>
+        <button class="btn btn-outline dash-small-btn canjear-btn" data-cost="50">Canjear</button>
+      </article>
+
+    </section>
+
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <span>📜 Historial de canjes</span>
+      </div>
+
+      <article id="historial-vacio" class="dash-card">
+        <p class="dash-route-meta">Aún no has canjeado ninguna recompensa.</p>
+      </article>
+
+      <div id="historial-list"></div>
+    </section>
+
+  </main>
+
+  <script src="js/recompensas.js" defer></script>
+
+</body>
+</html>
