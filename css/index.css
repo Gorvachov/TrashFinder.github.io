@@ -388,32 +388,15 @@ body.lock { overflow: hidden; }
 /* A partir de aquí son las configuraciones para el mapa de contenedores */
 .map-container {
   position: relative;
-  display: inline-block;
+  width: 600px;               /* ajusta al tamaño que quieras */
+  margin: 0px auto;
 }
 
-.map-container img {
-  display: block;
-}
-
-.icon { /*Quiero que los contenedores se sobrepongan sobre el mapa, ojo con esto*/
-  position: absolute;
-  width: 40px;      /* cambia tamaño del icono */
-  height: auto;
-}
-
-.container1 {
-  top: 40%;   /* mueve vertical */
-  left: 65%;  /* mueve horizontal */
-}
-
-.container2 {
-  top: 70%;
-  left: 30%;
-}
-
-.container3 {
-  top: 80%;
-  left: 80%;
+.map-img {
+    width: 100%;
+    border-radius: 10px;
+    animation: FadeIn 1s ease forwards;
+    box-shadow: 0 6px 20px rgba(0,0,0, 0.4);
 }
 /*Hasta aquí son las configuraciones para el mapa de contenedores*/
 .tacho-estado {
@@ -437,6 +420,7 @@ body.lock { overflow: hidden; }
   padding: 8px;
   border-radius: 6px;
 }
+
 
 
 
