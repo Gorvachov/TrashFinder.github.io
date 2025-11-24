@@ -254,6 +254,9 @@ window.canjearBeneficio = function () {
           mapPlaceholderEl.textContent =
             `🗺️ Mapa centrado en Tacho ${alerta.tacho} — ${alerta.ubicacion}`;
         }
+        if (mapImageEl && alerta.imagen) {
+          mapImageEl.src = alerta.imagen;
+        } 
 
         if (modoResumen) {
           // Desde el dashboard → abre pantalla completa de alertas
@@ -262,6 +265,7 @@ window.canjearBeneficio = function () {
           // Ya estamos en la pantalla de alertas → solo resalta
           resaltarAlertaEnLista(alerta.id);
         }
+        const mapImageEl = document.getElementById('alert-map-img'); // arriba, una sola vez
       });
 
       if (!modoResumen) {
@@ -478,6 +482,7 @@ window.canjearBeneficio = function () {
     localStorage.removeItem('tf_session');
     window.location.href = 'login.html';
   });
+
 
 
 
