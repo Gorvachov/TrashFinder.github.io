@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Educación – Impacto de la Basura</title>
+
+    <!-- ✔ Usa el mismo diseño global del index -->
+    <link rel="stylesheet" href="css/index.css" />
+
+    <!-- ✔ Estilos propios de la HU-020 -->
+    <link rel="stylesheet" href="css/educativa.css" />
+  </head>
+
+  <body>
+    <!-- Navbar igual que en index -->
+    <header class="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <div class="logo">
+            <img src="img/logo.png" width="40" height="40" alt="Logo" />
+            <span class="logo-text">TRASH FINDER</span>
+          </div>
+
+          <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="capacitacion.html">Capacitación</a></li>
+            <li><a href="notas.html">Notas</a></li>
+            <li><a href="historial.html">Historial</a></li>
+            <li><a href="educativa.html" class="active">Educación</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <h1 class="page-title">Información educativa</h1>
+      <p class="page-lead">
+        Aprende sobre el impacto de la basura y cómo puedes ayudar a tu ciudad.
+      </p>
+
+      <!-- Tarjetas educativas -->
+      <section class="edu-cards" id="cardsContainer"></section>
+
+      <!-- Videos -->
+      <section class="edu-section">
+        <h2>Videos recomendados</h2>
+
+        <div class="edu-videos">
+          <div class="video-box">
+            <iframe
+              width="100%"
+              height="220"
+              src="https://www.youtube.com/embed/3R1W7Yb9N6c"
+              allowfullscreen
+            ></iframe>
+            <p>Impacto de la basura en la ciudad</p>
+          </div>
+
+          <div class="video-box">
+            <iframe
+              width="100%"
+              height="220"
+              src="https://www.youtube.com/embed/2q5Y4m1b0cQ"
+              allowfullscreen
+            ></iframe>
+            <p>Cómo separar residuos correctamente</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recursos -->
+      <section class="edu-section">
+        <h2>Recursos</h2>
+        <ul class="resource-list">
+          <li>📘 Contaminación urbana explicada fácil</li>
+          <li>♻️ Cómo separar residuos en casa</li>
+          <li>🗑 Basura y salud pública</li>
+          <li>🌎 ¿Qué es la economía circular?</li>
+        </ul>
+      </section>
+
+      <!-- Quiz -->
+      <section class="edu-section">
+        <h2>Mini-quiz</h2>
+        <div id="quizContainer"></div>
+        <div id="quizResult" class="quiz-result"></div>
+      </section>
+    </main>
+
+    <script src="js/educativa.js"></script>
+  </body>
+</html>

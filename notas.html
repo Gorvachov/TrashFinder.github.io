@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notas del Personal</title>
+
+    <link rel="stylesheet" href="css/notas.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h2>Notas del Personal</h2>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="notas.html" class="active">Notas</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <h3>Agregar nueva nota</h3>
+
+      <textarea
+        id="textoNota"
+        placeholder="Escribe aquí tu nota..."
+        maxlength="300"
+      ></textarea>
+
+      <button id="btnGuardar">Guardar Nota</button>
+
+      <h3>Notas Guardadas</h3>
+      <div id="listaNotas" class="lista"></div>
+    </main>
+
+    <script src="js/notas.js"></script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eventos ecológicos — Trash Finder</title>
+
+    <!-- Usa los colores globales -->
+    <link rel="stylesheet" href="css/index.css" />
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="css/notificacionevento.css" />
+  </head>
+
+  <body>
+    <header class="navbar">
+      <div class="container nav-content">
+        <div class="logo">
+          <img src="img/logo.png" width="36" height="36" alt="Logo" />
+          <span class="logo-text">TRASH FINDER</span>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="dashboard.html">Volver al panel</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <h1 class="page-title">📢 Notificaciones de eventos ecológicos</h1>
+      <p class="page-lead">
+        Revisa los eventos de tu distrito, participa y gana puntos.
+      </p>
+
+      <!-- Eventos activos -->
+      <section class="event-section">
+        <h2>Eventos disponibles</h2>
+        <div id="eventosActivos" class="event-box"></div>
+      </section>
+
+      <!-- Eventos finalizados -->
+      <section class="event-section">
+        <h2>Eventos finalizados</h2>
+        <div id="eventosFinalizados" class="event-box"></div>
+      </section>
+    </main>
+
+    <script src="js/notificacionevento.js"></script>
+  </body>
+</html>
