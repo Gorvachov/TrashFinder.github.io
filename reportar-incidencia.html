@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reportar Incidencia — Trash Finder</title>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <div class="logo">
+        <img src="img/logo.png" width="36" height="36" alt="Logo" />
+        <span class="logo-text">TRASH FINDER</span>
+      </div>
+      <div class="nav-buttons">
+        <a href="index.html" class="btn btn-secondary">← Volver al dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard container">
+    <header class="dash-header">
+      <h1 class="dash-title">📸 Reportar Incidencia</h1>
+      <p class="dash-meta">Documenta problemas encontrados en tu ruta</p>
+    </header>
+
+    <!-- Formulario de incidencia -->
+    <section class="dash-section">
+      <form id="formIncidencia" class="incident-form">
+        
+        <!-- Foto -->
+        <div class="form-group">
+          <label for="foto-incidencia">📷 Foto de la incidencia *</label>
+          <div class="photo-upload-area" id="photoUploadArea">
+            <input type="file" id="foto-incidencia" accept="image/*" capture="environment" required hidden>
+            <div class="photo-preview" id="photoPreview">
+              <span class="upload-icon">📸</span>
+              <p>Toca para tomar foto o seleccionar</p>
+            </div>
+            <img id="previewImage" class="preview-img hidden" alt="Vista previa">
+          </div>
+        </div>
+
+        <!-- Categoría -->
+        <div class="form-group">
+          <label for="categoria">🗂️ Categoría *</label>
+          <select id="categoria" required>
+            <option value="">Selecciona una categoría</option>
+            <option value="tacho-danado">Tacho dañado</option>
+            <option value="tacho-lleno">Tacho desbordado</option>
+            <option value="obstruccion">Obstrucción en la vía</option>
+            <option value="derrame">Derrame de residuos</option>
+            <option value="vandalismo">Vandalismo</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+
+        <!-- Comentario -->
+        <div class="form-group">
+          <label for="comentario">💬 Comentario *</label>
+          <textarea 
+            id="comentario" 
+            rows="4" 
+            placeholder="Describe qué encontraste y qué se puede recoger o qué problema hay..."
+            required
+            maxlength="300"></textarea>
+          <span class="char-counter"><span id="charCount">0</span>/300</span>
+        </div>
+
+        <!-- Ubicación (opcional - se puede obtener automáticamente) -->
+        <div class="form-group">
+          <label>📍 Ubicación</label>
+          <div class="location-info">
+            <span id="locationText">Obteniendo ubicación...</span>
+            <button type="button" id="btnGetLocation" class="btn btn-outline">Actualizar</button>
+          </div>
+          <input type="hidden" id="latitud">
+          <input type="hidden" id="longitud">
+        </div>
+
+        <!-- Estado de envío -->
+        <div id="statusMessage" class="status-message hidden"></div>
+
+        <!-- Botones -->
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary" id="btnEnviar">
+            📤 Enviar reporte
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Lista de incidencias enviadas -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <span>📋 Mis incidencias recientes</span>
+      </div>
+      <div id="incidentList" class="incident-list">
+        <!-- Se llenarán dinámicamente con JS -->
+        <p class="dash-meta">No hay incidencias reportadas aún.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/reportar-incidencia.js"></script>
+</body>
+</html>
