@@ -126,10 +126,31 @@ window.canjearBeneficio = function () {
 
     // ==== HU-60: gestión de alertas ====
     const alertasIniciales = [
-      { id: 'AL-01', tacho: '#03 Callao Sur',       estado: 'Dañado',            ubicacion: 'Callao Sur',       nivel: 'alta'   },
-      { id: 'AL-02', tacho: '#03 Callao Sur',       estado: 'Sensor dañado',     ubicacion: 'Callao Sur',       nivel: 'alta'   },
-      { id: 'AL-03', tacho: '#12 San Miguel Norte', estado: 'Lleno hace 15 min', ubicacion: 'San Miguel Norte', nivel: 'media'  }
-    ];
+  {
+    id: 'AL-01',
+    tacho: '#01 San Martin De Porres',
+    estado: 'Sensor dañado',
+    ubicacion: 'Av Canta Callao',
+    nivel: 'alta',
+    imagen: 'img/map-sanmartindeporres.png'
+  },
+  {
+    id: 'AL-02',
+    tacho: '#02 Comas',
+    estado: 'Tacho lleno',
+    ubicacion: 'Av. Tupac Amaru',
+    nivel: 'alta',
+    imagen: 'img/map-comas.png'
+  },
+  {
+    id: 'AL-03',
+    tacho: '#03 Carabayllo',
+    estado: 'Tacho lleno',
+    ubicacion: 'Av. Tupac Amaru',
+    nivel: 'media',
+    imagen: 'img/map-carabayllo.png'
+  }
+];
 
     const alertasActivas = [...alertasIniciales];
     const historialAlertasResueltas = [];
@@ -457,6 +478,7 @@ window.canjearBeneficio = function () {
     localStorage.removeItem('tf_session');
     window.location.href = 'login.html';
   });
+
 
 
 
