@@ -1,0 +1,60 @@
+.page-content {
+    margin-top: 40px;
+  }
+  
+  .page-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #0b8f45;
+  }
+  
+  .page-lead {
+    color: #555;
+    margin-bottom: 25px;
+  }
+  
+  .event-section {
+    margin-bottom: 30px;
+  }
+  
+  .event-box {
+    background: white;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  }
+  
+  .event-card {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .event-card:last-child {
+    border-bottom: none;
+  }
+  
+  .event-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0b8f45;
+  }
+  
+  .event-meta {
+    color: #666;
+    margin: 4px 0 10px;
+  }
+  
+  .btn-inscribir {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    background: #0b8f45;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .btn-inscribir.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  

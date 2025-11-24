@@ -1,0 +1,51 @@
+.page-title {
+  margin-top: 40px;
+  font-size: 32px;
+  color: #0b8f45;
+}
+
+.eventos-list {
+  margin-top: 25px;
+  display: grid;
+  gap: 16px;
+}
+
+.evento-card {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.09);
+}
+
+.evento-card h3 {
+  margin-top: 0;
+  color: #0b8f45;
+}
+
+.evento-card p {
+  color: #555;
+}
+
+.btn-evento {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  background: #0b8f45;
+  font-weight: bold;
+}
+
+.btn-evento.secondary {
+  background: #444;
+}
+
+.estado-inscrito {
+  display: inline-block;
+  margin-top: 10px;
+  background: #def6e3;
+  color: #0b8f45;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}

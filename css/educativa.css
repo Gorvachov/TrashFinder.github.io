@@ -1,0 +1,71 @@
+.page-content {
+  margin-top: 40px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0b8f45;
+}
+
+.page-lead {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* Tarjetas */
+.edu-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.edu-card {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.09);
+}
+
+.edu-card h3 {
+  margin: 0 0 8px;
+  color: #0b8f45;
+}
+
+.edu-card p {
+  color: #555;
+  margin: 0;
+}
+
+/* Videos */
+.edu-videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.video-box p {
+  margin-top: 8px;
+  text-align: center;
+  color: #333;
+}
+
+/* Recursos */
+.resource-list {
+  margin-top: 12px;
+  padding-left: 20px;
+  color: #444;
+}
+
+.resource-list li {
+  margin-bottom: 8px;
+}
+
+/* Quiz */
+.quiz-result {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #0b8f45;
+}

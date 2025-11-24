@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f6f8;
+}
+
+.topbar {
+  background: white;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.topbar a {
+  margin-left: 12px;
+  text-decoration: none;
+  color: #444;
+}
+
+.topbar a.active {
+  color: #0a7f3f;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.curso {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.curso h4 {
+  margin-top: 0;
+  color: #0a7f3f;
+}
+
+.curso button {
+  background: #0a7f3f;
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.curso button.completado {
+  background: #bababa;
+  cursor: default;
+}
+
+.check {
+  color: green;
+  font-weight: bold;
+  margin-left: 10px;
+}
