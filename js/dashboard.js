@@ -96,8 +96,7 @@ window.canjearBeneficio = function () {
     $('nivel')  && ($('nivel').textContent  = String(stats.nivel));
     $('sum-progreso') && ($('sum-progreso').textContent = `${pct}%`);*/
   }
-
-// --- 4) Vista RECOLECTOR: saludo + fecha + resumen ---
+  // --- 4) Vista RECOLECTOR: saludo + fecha + resumen + alertas ---
   if (isRecolector && vRecolector) {
     const nombre = me.nombres || me.username || 'Recolector';
 
@@ -114,7 +113,7 @@ window.canjearBeneficio = function () {
     const meta = document.getElementById('collector-meta');
     if (meta) meta.innerHTML = `Turno: Mañana | Fecha: ${fecha}`;
 
-    const stats = me.stats || { rutas: 3, tachosAtendidos: 27, tachosTotal: 45, alertas: 2, progreso: 0.6 };
+    const stats = me.stats || { rutas: 3, tachosAtendidos: 27, tachosTotal: 45, alertas: 3, progreso: 0.6 };
     const pct = typeof stats.progreso === 'number'
       ? Math.round(stats.progreso * 100)
       : Math.round((stats.tachosAtendidos / Math.max(stats.tachosTotal || 1, 1)) * 100);
@@ -124,6 +123,206 @@ window.canjearBeneficio = function () {
     $('sum-tachos')   && ($('sum-tachos').textContent   = `${stats.tachosAtendidos}/${stats.tachosTotal}`);
     $('sum-alertas')  && ($('sum-alertas').textContent  = String(stats.alertas));
     $('sum-progreso') && ($('sum-progreso').textContent = `${pct}%`);
+
+    // ==== HU-60: gestión de alertas ====
+    const vRecolectorAlertas = document.getElementById('view-recolector-alertas');
+
+    const summarySection  = document.getElementById('alerts-summary-section');
+    const summaryList     = document.getElementById('alerts-summary-list');
+    const summaryInfo     = document.getElementById('alerts-summary-info');
+    const btnVerTodasDash = document.getElementById('btnVerTodasAlertasDashboard');
+
+    const listaAlertasEl    = document.getElementById('alertas-lista');
+    const contadorAlertasEl = document.getElementById('count-alertas-activas');
+    const mapaLabelEl       = document.getElementById('alertas-mapa-label');
+    const mapPlaceholderEl  = document.getElementById('alert-map-placeholder');
+    const historialEl       = document.getElementById('historial-alertas-resueltas');
+    const btnVolverPanel    = document.getElementById('btnVolverPanelRecolector');
+
+    // Datos de ejemplo para el prototipo
+    const alertasIniciales = [
+      { id: 'AL-01', tacho: '#03 Callao Sur',       estado: 'Dañado',            ubicacion: 'Callao Sur',       nivel: 'alta'   },
+      { id: 'AL-02', tacho: '#03 Callao Sur',       estado: 'Sensor dañado',     ubicacion: 'Callao Sur',       nivel: 'alta'   },
+      { id: 'AL-03', tacho: '#12 San Miguel Norte', estado: 'Lleno hace 15 min', ubicacion: 'San Miguel Norte', nivel: 'media'  }
+    ];
+
+    const alertasActivas = [...alertasIniciales];
+    const historialAlertasResueltas = [];
+
+    function mostrarVistaPanelRecolector() {
+      vRecolector.classList.remove('hidden');
+      vRecolectorAlertas?.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function mostrarVistaAlertas(alertaIdSeleccionada) {
+      vRecolector.classList.add('hidden');
+      vRecolectorAlertas?.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (alertaIdSeleccionada) {
+        // Esperamos al siguiente frame para asegurarnos de que la lista ya está pintada
+        requestAnimationFrame(() => {
+          resaltarAlertaEnLista(alertaIdSeleccionada);
+        });
+      }
+    }
+
+    function actualizarContadorAlertas() {
+      if (!contadorAlertasEl) return;
+      const n = alertasActivas.length;
+      contadorAlertasEl.textContent =
+        n === 0
+          ? '0 alertas activas'
+          : `${n} alerta${n !== 1 ? 's' : ''} activa${n !== 1 ? 's' : ''}`;
+    }
+
+    function renderHistorial() {
+      if (!historialEl) return;
+      if (historialAlertasResueltas.length === 0) {
+        historialEl.textContent = 'No hay alertas resueltas hoy.';
+      } else {
+        const n   = historialAlertasResueltas.length;
+        const ult = historialAlertasResueltas[historialAlertasResueltas.length - 1];
+        historialEl.textContent =
+          `Hoy has resuelto ${n} alerta${n !== 1 ? 's' : ''}. ` +
+          `Última: Tacho ${ult.tacho} (${ult.estado}).`;
+      }
+    }
+
+    function resaltarAlertaEnLista(idAlerta) {
+      if (!listaAlertasEl) return;
+      listaAlertasEl
+        .querySelectorAll('.alert-card')
+        .forEach(card => card.classList.remove('alert-card-highlight'));
+      const seleccionada = listaAlertasEl.querySelector(`[data-alerta-id="${idAlerta}"]`);
+      if (seleccionada) {
+        seleccionada.classList.add('alert-card-highlight');
+      }
+    }
+
+    function crearCardAlerta(alerta, opciones = {}) {
+      const { modoResumen = false } = opciones;
+      const card = document.createElement('article');
+
+      let nivelClass = '';
+      if (alerta.nivel === 'media') nivelClass = 'alert-card-warning';
+      else if (alerta.nivel === 'baja') nivelClass = 'alert-card-low';
+
+      card.className = `dash-card alert-card ${nivelClass}`;
+      card.dataset.alertaId = alerta.id;
+
+      card.innerHTML = `
+        <p class="dash-route-title">Tacho ${alerta.tacho}</p>
+        <p class="dash-route-meta">Estado: ${alerta.estado}</p>
+        <div class="alert-card-actions">
+          <button class="btn btn-outline dash-small-btn btn-ver-mapa" type="button">
+            Ver en mapa
+          </button>
+          ${modoResumen ? '' : `
+          <button class="btn btn-primary dash-small-btn btn-resolver" type="button">
+            Marcar resuelta
+          </button>`}
+        </div>
+      `;
+
+      const btnMapa = card.querySelector('.btn-ver-mapa');
+      btnMapa?.addEventListener('click', () => {
+        if (mapaLabelEl) {
+          mapaLabelEl.textContent =
+            `Mostrando en el mapa: Tacho ${alerta.tacho} (${alerta.ubicacion}).`;
+        }
+        if (mapPlaceholderEl) {
+          mapPlaceholderEl.textContent =
+            `🗺️ Mapa centrado en Tacho ${alerta.tacho} — ${alerta.ubicacion}`;
+        }
+
+        if (modoResumen) {
+          // Desde el dashboard → abre pantalla completa de alertas
+          mostrarVistaAlertas(alerta.id);
+        } else {
+          // Ya estamos en la pantalla de alertas → solo resalta
+          resaltarAlertaEnLista(alerta.id);
+        }
+      });
+
+      if (!modoResumen) {
+        const btnResolver = card.querySelector('.btn-resolver');
+        btnResolver?.addEventListener('click', () => {
+          const idx = alertasActivas.findIndex(a => a.id === alerta.id);
+          if (idx !== -1) {
+            alertasActivas.splice(idx, 1);
+            historialAlertasResueltas.push({
+              ...alerta,
+              resueltaEn: new Date().toISOString()
+            });
+            renderAlertasResumen();
+            renderAlertasCompleta();
+            renderHistorial();
+          }
+        });
+      }
+
+      return card;
+    }
+
+    function renderAlertasResumen() {
+      if (!summaryList) return;
+      summaryList.innerHTML = '';
+
+      const maxMostrar = 2;
+      const subset = alertasActivas.slice(0, maxMostrar);
+
+      if (summaryInfo) {
+        if (alertasActivas.length === 0) {
+          summaryInfo.textContent = 'No hay alertas activas en este momento.';
+        } else if (alertasActivas.length <= maxMostrar) {
+          summaryInfo.textContent =
+            `Mostrando todas las ${alertasActivas.length} alertas activas.`;
+        } else {
+          summaryInfo.textContent =
+            `Mostrando ${subset.length} de ${alertasActivas.length} alertas activas.`;
+        }
+      }
+
+      subset.forEach(alerta => {
+        summaryList.appendChild(crearCardAlerta(alerta, { modoResumen: true }));
+      });
+    }
+
+    function renderAlertasCompleta() {
+      if (!listaAlertasEl) return;
+      listaAlertasEl.innerHTML = '';
+
+      if (alertasActivas.length === 0) {
+        listaAlertasEl.innerHTML =
+          '<p class="dash-meta">🎉 No hay alertas activas en este momento.</p>';
+      } else {
+        alertasActivas.forEach(alerta => {
+          listaAlertasEl.appendChild(crearCardAlerta(alerta, { modoResumen: false }));
+        });
+      }
+
+      actualizarContadorAlertas();
+    }
+
+    // Eventos de navegación entre vistas
+    btnVerTodasDash?.addEventListener('click', () => {
+      // Desde el resumen → pantalla completa de alertas
+      mostrarVistaAlertas();
+    });
+
+    btnVolverPanel?.addEventListener('click', () => {
+      // Botón ← Volver al panel
+      mostrarVistaPanelRecolector();
+    });
+
+    // Inicialización de vistas de alertas
+    renderAlertasResumen();
+    renderAlertasCompleta();
+    renderHistorial();
+    mostrarVistaPanelRecolector();
+  }
           // ===== HU-001: Recepción de alertas de emergencia (DEMO) =====
   const MAX_REINTENTOS = 3;
   const RETRY_MS = 2000;
@@ -264,6 +463,7 @@ window.canjearBeneficio = function () {
     window.location.href = 'login.html';
   });
 }
+
 
 
 
