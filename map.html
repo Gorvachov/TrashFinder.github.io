@@ -21,7 +21,7 @@
   </header>
   <h1>Mapa de contenedores</h1>
         <div class="map-container">
-        <img src="img/mapa_localizacion.jpg" class="map-img" alt="Mapa de Localizacion">
+        <img src="img/map-salaverry.jpg" class="map-img" id="mapa-salaverry" alt="Mapa Salaverry">
         </div>
         <p> Contenedor más cercano: 150 m</p>
        <div class="tacho-estado">
@@ -30,12 +30,12 @@
     <button onclick="cambiarEstado()">Simular cambio</button>
   </div> 
         <div class="map-actions">
-          <button class="btn btn-terciary btn-large" type ="button"> ¿Cómo llegar?</button>
+          <button class="btn btn-terciary btn-large" type ="button" onclick="mostrarRuta()"> ¿Cómo llegar?</button>
           <a class="link" href = "report.html">
           <button class="btn btn-secondary btn-large" type ="button"> Reportar problema</button>
           </a>
         </div>
-             <script>
+             <script src="js/map.js" defer>
 let lleno = true;
 
 function cambiarEstado() {
@@ -55,6 +55,7 @@ function cambiarEstado() {
 
       </body>
 </html>
+
 
 
 
