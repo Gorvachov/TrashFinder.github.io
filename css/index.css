@@ -396,6 +396,12 @@ body.lock { overflow: hidden; }
   box-shadow:var(--shadow-1);
 }
 
+.alert-map-img {
+  display: block;
+  width: 100%;   /* se adapta al ancho del contenedor */
+  height: auto;  /* respeta la proporción 1600x800 */
+}
+
 .alert-map-placeholder{
   width:100%;
   min-height:200px;
@@ -468,6 +474,7 @@ body.lock { overflow: hidden; }
   padding: 8px;
   border-radius: 6px;
 }
+
 
 
 
