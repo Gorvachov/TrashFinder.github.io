@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/perfil.css">
+</head>
+
+<body>
+
+    <div class="profile-container">
+
+        <header class="header-green"></header>
+
+        <main class="profile-content">
+
+            <!-- Avatar -->
+            <section class="avatar-section">
+                <div class="avatar-wrapper">
+                    <img src="img/avatar.png" class="avatar-image" alt="Foto de perfil">
+
+                    <button class="camera-btn">
+                        <img src="img/camara.png"
+                             data-light="img/camara.png"
+                             data-dark="img/camara.png"
+                             class="camera-icon icon-mode"
+                             alt="Cambiar foto">
+                    </button>
+                </div>
+            </section>
+
+            <!-- Info usuario -->
+            <section class="user-info">
+                <h1 class="user-name">Carla Gutiérrez</h1>
+                <p class="user-level">Eco-Novato 🌿</p>
+                <p class="user-email">carlagutierrez21@gmail.com</p>
+            </section>
+
+            <!-- Menú principal -->
+            <nav class="menu-options">
+
+                <a href="editar.html" class="option-item clickable">
+                    <img src="img/editar.png" data-light="img/editar.png" data-dark="img/editar_dark.png" class="menu-icon icon-mode">
+                    <span>Editar perfil</span>
+                </a>
+
+                <button class="option-item clickable">
+                    <img src="img/ajustes.png" data-light="img/ajustes.png" data-dark="img/ajustes_dark.png" class="menu-icon icon-mode">
+                    <span>Ajustes</span>
+                </button>
+
+                <button class="option-item clickable">
+                    <img src="img/notificaciones.png" data-light="img/notificaciones.png" data-dark="img/notificaciones_dark.png" class="menu-icon icon-mode">
+                    <span>Notificaciones</span>
+                </button>
+
+                <!-- MODO OSCURO -->
+                <div class="option-item dark-mode-option">
+                    <span>Modo oscuro</span>
+
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <button class="option-item clickable">
+                    <img src="img/ayuda.png" data-light="img/ayuda.png" data-dark="img/ayuda_dark.png" class="menu-icon icon-mode">
+                    <span>Centro de ayuda</span>
+                </button>
+
+            </nav>
+
+            <button class="logout-btn" onclick="cerrarSesion()">
+                Cerrar sesión
+            </button>
+
+            <a href="#" class="terms-link">Términos y condiciones</a>
+
+        </main>
+
+    </div>
+
+    <script src="js/perfil.js"></script>
+</body>
+
+</html>
