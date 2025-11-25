@@ -136,6 +136,7 @@ body.dark-mode {
     border-bottom: 1px solid rgba(0,0,0,0.08);
     cursor: pointer;
     transition: 0.25s ease;
+    text-decoration: none;
 }
 
 .option-item:hover {
@@ -221,3 +222,4 @@ input:checked + .slider::before {
     font-size: 14px;
     text-decoration: underline;
 }
+
