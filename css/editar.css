@@ -1,0 +1,117 @@
+/* ----------- VARIABLES DE TEMA ----------- */
+:root {
+    --bg: #FAFAFA;
+    --card: #FFFFFF;
+    --text: #000000;
+    --subtext: #BDBDBD;
+    --primary: #2F80ED;
+    --green: #16A34A;
+    --border: #444;
+    --input-bg: #FAFAFA;
+    --input-text: #1A1A1A;
+    --error: #ff6b6b;
+}
+
+/* Modo oscuro */
+body.dark-mode {
+    --bg: #0F0F0F;
+    --card: #1A1A1A;
+    --text: #FAFAFA;
+    --subtext: #8A8A8A;
+    --primary: #4C9EFF;
+    --green: #22C55E;
+    --border: #333;
+    --input-bg: #1A1A1A;
+    --input-text: #FAFAFA;
+}
+
+/* ----------- RESET ----------- */
+body {
+    margin: 0;
+    padding: 40px 60px;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background .2s, color .2s;
+}
+
+/* ----------- TITULOS ----------- */
+h1 {
+    color: var(--primary);
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    color: var(--subtext);
+    margin-bottom: 22px;
+}
+
+/* ----------- FORMULARIO ----------- */
+.form-card {
+    max-width: 500px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.field span {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+input {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--input-bg);
+    color: var(--input-text);
+    font-size: 14px;
+    outline: none;
+    transition: 0.15s ease-in-out;
+}
+
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(47, 128, 237, 0.35);
+}
+
+/* ----------- BOTONES ----------- */
+.save-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.save-btn:hover {
+    filter: brightness(0.95);
+}
+
+/* ----------- VOLVER ----------- */
+.back-btn {
+    background: transparent;
+    border: none;
+    color: var(--subtext);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+/* ----------- ERROR ----------- */
+.error-text {
+    color: var(--error);
+    font-size: 14px;
+    margin-top: 10px;
+}
