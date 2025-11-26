@@ -38,6 +38,16 @@ body.dark-mode {
     padding: 40px 20px 80px;
 }
 
+.back-btn {
+    background: transparent;
+    border: none;
+    color: #BDBDBD;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-align: left;
+}
 
 /* AVATAR */
 .avatar-section {
@@ -223,5 +233,6 @@ input:checked + .slider::before {
     font-size: 14px;
     text-decoration: underline;
 }
+
 
 
