@@ -53,6 +53,14 @@ function guardarDatos() {
     window.location.href = "perfil.html";
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const dark = localStorage.getItem("darkMode");
+    if (dark === "true") {
+        document.body.classList.add("dark-mode");
+    }
+});
+
 function volverPerfil() {
     window.location.href = "perfil.html";
 }
+
