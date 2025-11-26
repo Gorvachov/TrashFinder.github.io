@@ -55,8 +55,8 @@ toggle?.addEventListener("change", () => {
 });
 
 function volverPerfil() {
-    window.history.back();
-    }
+    window.location.href = "dashboard.html";
+}
 
 // Cerrar sesión
 function cerrarSesion() {
@@ -68,5 +68,6 @@ function cerrarSesion() {
     // volver a login
     window.location.href = "login.html";
 }
+
 
 
