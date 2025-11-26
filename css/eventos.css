@@ -1,29 +1,7 @@
-:root {
-    --bg: #F6F6F6;
-    --card: #FAFAFA;
-    --text: #000000;
-    --subtext: #4F4F4F;
-    --green: #16A34A;
-    --blue: #2F80ED;
-}
-
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    transition: background-color .35s ease, color .35s ease;
-}
-
-body.dark-mode {
-    --bg: #0F0F0F;
-    --card: #1A1A1A;
-    --text: #FAFAFA;
-    --subtext: #BDBDBD;
-}
 .page-title {
   margin-top: 40px;
   font-size: 32px;
-  color: var(--green);
+  color: #0b8f45;
 }
 
 .eventos-list {
@@ -33,20 +11,19 @@ body.dark-mode {
 }
 
 .evento-card {
-  background: var(--card);
+  background: white;
   padding: 18px;
   border-radius: 10px;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.09);
-  color: var(--text);
 }
 
 .evento-card h3 {
   margin-top: 0;
-  color: var(--green);
+  color: #0b8f45;
 }
 
 .evento-card p {
-  color: var(--subtext);
+  color: #555;
 }
 
 .btn-evento {
@@ -55,19 +32,19 @@ body.dark-mode {
   border-radius: 8px;
   cursor: pointer;
   color: white;
-  background: var(--green);
+  background: #0b8f45;
   font-weight: bold;
 }
 
 .btn-evento.secondary {
-  background: var(--subtext);
+  background: #444;
 }
 
 .estado-inscrito {
   display: inline-block;
   margin-top: 10px;
-  background: rgba(22, 163, 74, 0.15); /* verde suave */
-  color: var(--green);
+  background: #def6e3;
+  color: #0b8f45;
   padding: 5px 10px;
   border-radius: 6px;
   font-size: 14px;
