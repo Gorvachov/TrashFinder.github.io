@@ -50,49 +50,39 @@
   font-size: 14px;
 }
 
-body.dark-mode {
-  background: #121212;
-  color: #f5f5f5;
+/* ------------------- DARK MODE – EVENTOS ------------------- */
+
+body.dark-mode .page-title {
+  color: #7ed321;
 }
 
-body.dark-mode .navbar {
-  background: #1e1e1e;
-}
-
-body.dark-mode .dash-card {
-  background: #1f1f1f;
-  color: #f5f5f5;
-}
-
-body.dark-mode .dash-title,
-body.dark-mode .dash-meta,
-body.dark-mode .dash-route-meta,
-body.dark-mode .dash-route-title {
-  color: #f5f5f5;
-}
-
-body.dark-mode .btn-secondary {
-  color: #fff;
-  border-color: #444;
-}
-
-body.dark-mode .btn-outline {
+body.dark-mode .eventos-list {
   background: transparent;
-  border-color: #444;
-  color: #fff;
 }
 
-body.dark-mode .dash-progress {
-  border-color: #f5c800;
-  color: #f5c800;
+body.dark-mode .evento-card {
+  background: #1d1d1d;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
 }
 
-body.dark-mode .dash-progress-bar {
-  background: #222;
-  color: #f5c800;
+body.dark-mode .evento-card h3 {
+  color: #7ed321;
 }
 
-body.dark-mode .alert-map-placeholder {
-  background: #2a2a2a;
-  color: #ccc;
+body.dark-mode .evento-card p {
+  color: #cccccc;
+}
+
+body.dark-mode .btn-evento {
+  background: #16a34a;
+  color: white;
+}
+
+body.dark-mode .btn-evento.secondary {
+  background: #444;
+}
+
+body.dark-mode .estado-inscrito {
+  background: #1f3d2b;
+  color: #7ed321;
 }
