@@ -80,3 +80,97 @@ function obtenerUbicacion() {
 
 // Botón actualizar ubicación
 document.getElementById('btnGetLocation').addEventListener('click', obtenerUbicacion);
+
+// Enviar formulario
+formContenedor.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  // Validar que hay foto
+  if (!photoFile) {
+    mostrarEstado('⚠️ Debes agregar una foto', 'error');
+    return;
+  }
+  // Recopilar datos
+  const reporte = {
+    id: 'REP-' + Date.now(),
+    foto: photoFile.name,
+    fotoData: previewImage.src, // Base64 para demo
+    categoria: document.getElementById('categoria').value,
+    comentario: document.getElementById('comentario').value,
+    latitud: currentLocation.lat,
+    longitud: currentLocation.lng,
+    estado: 'Pendiente',
+    fecha: new Date().toLocaleString('es-PE'),
+    ciudadano: 'Juan Pérez' // En producción vendría del ciudadano logueado
+  };
+
+  console.log('📤 Enviando reporte:', reporte);
+
+  // Simular envío
+  const btnEnviar = document.getElementById('btnEnviar');
+  btnEnviar.disabled = true;
+  btnEnviar.textContent = '⏳ Enviando...';
+setTimeout(() => {
+    // Guardar reporte en localStorage
+    guardarReporte(reporte);
+    
+    // Mostrar éxito
+    mostrarEstado('✅ Gracias, tu reporte se ha enviado a la municipalidad.', 'success');
+    
+    // Actualizar lista
+    cargarReportesGuardados();
+    
+    // Resetear formulario
+    formContenedor.reset();
+    photoFile = null;
+    previewImage.classList.add('hidden');
+    photoPreview.classList.remove('hidden');
+    charCount.textContent = '0';
+    
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = '📤 Enviar reporte';
+    
+    // Scroll al top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 1500);
+});
+
+// Guardar incidencia en localStorage
+function guardarReporte(reporte) {
+  let reportes = JSON.parse(localStorage.getItem('reportes') || '[]');
+  reportes.unshift(reporte); // Agregar al inicio
+  localStorage.setItem('reportes', JSON.stringify(reportes));
+}
+
+// Cargar reportes guardados
+function cargarReportesGuardados() {
+  const reportes = JSON.parse(localStorage.getItem('reportes') || '[]');
+  
+  if (reportes.length === 0) {
+    reportList.innerHTML = '<p class="dash-meta">No hay reportes registrados aún.</p>';
+    return;
+  }
+  
+  reportList.innerHTML = reportes.slice(0, 5).map(inc => `
+    <article class="dash-card incident-card">
+      <img src="${inc.fotoData}" alt="Reporte" class="incident-thumb">
+      <div class="report-info">
+        <p class="dash-route-title">${inc.id} - ${inc.categoria}</p>
+        <p class="dash-route-meta">${inc.comentario.substring(0, 60)}...</p>
+        <p class="dash-route-meta">📅 ${inc.fecha}</p>
+        <span class="status-badge status-${inc.estado.toLowerCase()}">${inc.estado}</span>
+      </div>
+    </article>
+  `).join('');
+}
+
+// Mostrar mensaje de estado
+function mostrarEstado(mensaje, tipo) {
+  statusMessage.textContent = mensaje;
+  statusMessage.className = `status-message ${tipo}`;
+  statusMessage.classList.remove('hidden');
+  
+  setTimeout(() => {
+    statusMessage.classList.add('hidden');
+  }, 4000);
+}
