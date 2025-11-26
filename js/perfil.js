@@ -50,7 +50,6 @@ toggle?.addEventListener("change", () => {
 
 // ===== Cerrar sesión =====
 function cerrarSesion() {
-    alert("Sesión cerrada");
 
     // borrar sesión real
     localStorage.removeItem("tf_session");
@@ -58,4 +57,5 @@ function cerrarSesion() {
     // opcional: redireccionar
     window.location.href = "login.html";
 }
+
 
