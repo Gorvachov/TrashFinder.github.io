@@ -1,0 +1,124 @@
+h1, h2, h3 {
+    font-family: 'Inter', sans-serif;
+}
+p, span, button, a {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+body {
+    background: #FAFAFA;
+    margin: 0;
+    width: 412px;
+    margin: auto;
+    background: #FAFAFA;
+    padding: 20px;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* Logo */
+.logo {
+    width: 200px;
+    display: block;
+    margin: auto;
+}
+
+/* Slides */
+.slide {
+    display: none;
+    text-align: center;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    margin-top: 10px;
+}
+
+/* Volver */
+.back-link {
+    display: none;
+    color: #828282;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* Texto */
+
+.slide h2 {
+    font-size: 36px;
+    color: black;
+    font-weight: 1000;
+}
+
+.slide p {
+    font-size: 20px;
+    line-height: 1.6;
+    color: black;
+}
+
+/* Dots */
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #BDBDBD;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.dot.active {
+    background: #7ED321;
+    opacity: 1;
+}
+
+/* Controles */
+.buttons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.skip-link {
+    color: #BDBDBD;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#nextBtn {
+    background: #7ED321;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Estados */
+.full-width {
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
