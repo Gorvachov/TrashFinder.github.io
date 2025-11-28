@@ -22,3 +22,13 @@ function mostrarRuta() {
         imagen.src = "img/map-salaverry.jpg";
     }
 }
+
+function mostrarRutaRecoleccion() {
+    const imagen = document.getElementById("mapa-sanmiguel");
+
+    if (imagen.src.includes("img/map-sanmiguel.jpg")) {
+        imagen.src = "img/map-sanmiguel-ruta.jpg";
+    } else {
+        imagen.src = "img/map-sanmiguel.jpg";
+    }
+}
