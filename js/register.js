@@ -46,8 +46,15 @@ byId('registerForm')?.addEventListener('submit', (e) => {
   users.push(user);
   saveUsers(users);
   setSession(user.email);           // inicia sesión automáticamente
-  window.location.href = 'tutorial.html';
+  if (user.tipo === 'ciudadano') {
+    window.location.href = 'tutorial.html';
+    return;
+  }
+
+  // Si NO es ciudadano, va al dashboard normal
+  window.location.href = 'dashboard.html';
 });
+
 
 
 
