@@ -81,67 +81,6 @@ window.canjearBeneficio = function () {
     mensaje.textContent = "❌ No tienes puntos suficientes para canjear";
     mensaje.style.color = "red";
   }
-  // ==========================
-// POPUP EDUCATIVO RANDOM
-// ==========================
-window.addEventListener("load", () => {
-
-  const rawTipo = (me?.tipo || "").toLowerCase();
-  if (!rawTipo.includes("ciud")) return;
-
-  const yaVisto = localStorage.getItem("popupEducativoVisto");
-  if (yaVisto === "true") return;
-
-  setTimeout(() => {
-    mostrarPopupRandom();
-  }, 1500);
-});
-
-function mostrarPopupRandom() {
-  const popup = document.getElementById("popupEducativo");
-  const titulo = document.getElementById("popupTitulo");
-
-  const articuloBox = document.getElementById("popupArticulo");
-  const videoBox = document.getElementById("popupVideoBox");
-
-  const img = document.getElementById("popupImg");
-  const texto = document.getElementById("popupTexto");
-  const video = document.getElementById("popupVideo");
-
-  if (!popup) return;
-
-  // 50% probabilidad
-  const esVideo = Math.random() < 0.5;
-
-  // Reset
-  articuloBox.style.display = "none";
-  videoBox.style.display = "none";
-
-  if (esVideo) {
-    titulo.textContent = "Video: El impacto de la basura";
-    videoBox.style.display = "block";
-    video.src = "https://youtu.be/D5NKrsDkQ00?si=uHUb3g8ZJ6_ahwkj";
-  } else {
-    titulo.textContent = "Artículo: ¿Dónde va la basura?";
-    articuloBox.style.display = "block";
-    img.src = "img/impacto.png";
-    texto.textContent = "Una mala gestión de residuos contamina el suelo, el agua y el aire...";
-  }
-
-  popup.style.display = "flex";
-}
-
-function cerrarPopup() {
-  const popup = document.getElementById("popupEducativo");
-  const video = document.getElementById("popupVideo");
-
-  popup.style.display = "none";
-  localStorage.setItem("popupEducativoVisto", "true");
-
-  // Detener video al cerrar
-  if (video) video.src = "";
-}
-
 };
 
     const titulo = document.getElementById('citizen-name');
@@ -583,6 +522,7 @@ function renderHistorial() {
     localStorage.removeItem('tf_session');
     window.location.href = 'login.html';
   });
+
 
 
 
