@@ -59,5 +59,45 @@ form?.addEventListener('submit', (e) => {
   window.location.href = 'dashboard.html';
 });
 
+// ===============================
+//  Login con Google REAL (Firebase)
+// ===============================
+const googleBtn = document.getElementById("googleLoginBtn");
+
+if (googleBtn) {
+  googleBtn.addEventListener("click", async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+
+      const user = result.user;
+
+      // Guardar sesión
+      localStorage.setItem("tf_session", user.email);
+
+      // Si quieres guardar su nombre en tf_users, agrega:
+      let users = JSON.parse(localStorage.getItem("tf_users") || "[]");
+
+      if (!users.some(u => u.email === user.email)) {
+        users.push({
+          email: user.email,
+          nombres: user.displayName,
+          tipo: "ciudadano", // o recolector si quieres
+          pass: null
+        });
+        localStorage.setItem("tf_users", JSON.stringify(users));
+      }
+
+      // Redirigir
+      window.location.href = "dashboard.html";
+
+    } catch (error) {
+      console.error("Error al iniciar sesión con Google:", error);
+      alert("No se pudo iniciar sesión con Google.");
+    }
+  });
+}
+
 
 
