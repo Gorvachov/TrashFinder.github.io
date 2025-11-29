@@ -128,7 +128,7 @@ if (facebookBtn) {
         localStorage.setItem("tf_users", JSON.stringify(users));
       }
 
-      window.location.href = "dashboard.html";
+      window.location.href = "./dashboard.html";
 
     } catch (err) {
       console.error("Error Facebook Login:", err);
@@ -136,6 +136,7 @@ if (facebookBtn) {
     }
   });
 }
+
 
 
 
