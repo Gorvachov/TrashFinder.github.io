@@ -523,18 +523,6 @@ function renderHistorial() {
     window.location.href = 'login.html';
   });
 
-// --Para mostrar la zona del recolector (HU-046)
-  document.addEventListener("DOMContentLoaded", function () {
-    const zonas = ["Lima Norte", "Lima Sur", "Lima Este", "Lima Centro", "Callao"];
-
-    // Asignar fecha actual
-    const fecha = new Date().toLocaleDateString("es-PE");
-    document.getElementById("collector-date").innerText = fecha;
-
-    // Asignar zona aleatoria
-    const zonaAleatoria = zonas[Math.floor(Math.random() * zonas.length)];
-    document.getElementById("collector-zone").innerText = zonaAleatoria;
-  });
 
 
 
