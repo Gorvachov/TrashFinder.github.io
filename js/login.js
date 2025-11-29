@@ -1,3 +1,18 @@
+// ===============================
+// 1. Inicializar Firebase (AL INICIO)
+// ===============================
+const firebaseConfig = {
+  apiKey: "AIzaSyCaHIdJN4wSfmSpHagfHAp3zSnmfEYZKt0",
+  authDomain: "trashfinder-33bfa.firebaseapp.com",
+  projectId: "trashfinder-33bfa",
+  storageBucket: "trashfinder-33bfa.firebasestorage.app",
+  messagingSenderId: "992521259654",
+  appId: "1:992521259654:web:42e64a288223b556575f07",
+  measurementId: "G-HGW5XHG5NF"
+};
+
+firebase.initializeApp(firebaseConfig);
+
 const SPLASH_MS = 1800;
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -43,5 +58,6 @@ form?.addEventListener('submit', (e) => {
   setSession(user.email);
   window.location.href = 'dashboard.html';
 });
+
 
 
