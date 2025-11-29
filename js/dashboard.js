@@ -106,12 +106,13 @@ window.canjearBeneficio = function () {
     const hoy = new Date();
     const opts = { day: '2-digit', month: 'short', year: 'numeric' };
     let fecha = hoy.toLocaleDateString('es-ES', opts).replace('.', '');
+    let zona = "San Miguel";
     const parts = fecha.split(' ');
     if (parts[1]) parts[1] = parts[1][0].toUpperCase() + parts[1].slice(1);
     fecha = parts.join(' ');
 
     const meta = document.getElementById('collector-meta');
-    if (meta) meta.innerHTML = `Turno: Mañana | Fecha: ${fecha}`;
+    if (meta) meta.innerHTML = `Turno: Mañana | Fecha: ${fecha} | Zona: ${zona}`;
 
     const stats = me.stats || { rutas: 3, tachosAtendidos: 27, tachosTotal: 45, alertas: 3, progreso: 0.6 };
     const pct = typeof stats.progreso === 'number'
@@ -522,6 +523,7 @@ function renderHistorial() {
     localStorage.removeItem('tf_session');
     window.location.href = 'login.html';
   });
+
 
 
 
