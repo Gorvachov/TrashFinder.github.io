@@ -102,45 +102,33 @@ if (googleBtn) {
 // ===============================
 // Login con Facebook REAL (Firebase)
 // ===============================
-facebookBtn.addEventListener("click", async () => {
-const provider = new firebase.auth.FacebookAuthProvider();
+const facebookBtn = document.getElementById("facebookLoginBtn"); 
+if (facebookBtn) { 
+  facebookBtn.addEventListener("click", async () => { 
+    const provider = new firebase.auth.FacebookAuthProvider();
+    try { 
+      const result = await firebase.auth().signInWithPopup(provider); 
+      const user = result.user;
+      
+      // Crear sesión igual que Google 
+      localStorage.setItem("tf_session", user.email);
 
-  try {
-    const result = await firebase.auth().signInWithPopup(provider);
-    const user = result.user;
+      // Guardar en tf_users si no existe 
+      let users = JSON.parse(localStorage.getItem("tf_users") || "[]");
 
-    // Guardar sesión
-    localStorage.setItem("tf_session", user.email);
-
-    // 🔥 Asegurar que sí esté en tf_users
-    let users = JSON.parse(localStorage.getItem("tf_users") || "[]");
-
-    let exists = users.find(u => u.email === user.email);
-
-    if (!exists) {
-      users.push({
-        id: Date.now(),
-        email: user.email,
-        nombres: user.displayName || "Usuario Facebook",
-        tipo: "ciudadano",
-        puntos: 0,
-        pass: null
-      });
-      localStorage.setItem("tf_users", JSON.stringify(users));
-    }
-
-    //Esperamos un pequeño delay para asegurar escritura
-    setTimeout(() => {
-      window.location.href = "dashboard.html";
-    }, 200);
-
-  } catch (err) {
-    console.error("Error Facebook Login:", err);
-    alert("No se pudo iniciar sesion con Facebook.");
-  }
-});
-
-
-
-
-
+      if (!users.some(u => u.email === user.email)) { 
+        users.push({ 
+          email: user.email, 
+          nombres: user.displayName, 
+          tipo: "ciudadano", // o recolector si tú decides 
+          pass: null 
+        }); 
+        localStorage.setItem("tf_users", JSON.stringify(users)); 
+      } 
+      window.location.href = "dashboard.html"; } 
+    catch (err) { 
+      console.error("Error Facebook Login:", err); 
+      alert("No se pudo iniciar sesión con Facebook."); 
+    } 
+  }); 
+}
