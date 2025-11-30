@@ -303,7 +303,7 @@ function agregarAlHistorial(nombreRecompensa) {
 
 //   🥇 RECOMPENSAS POR MEJORES PUESTOS
 
-document.querySelector(".recompensa-mejor-puesto-btn")?.addEventListener("click", () => {
+document.querySelector(".recompensa-premium-btn")?.addEventListener("click", () => {
 
     const usuarioCalifica = false; 
     const recompensaNombre = " 50% de descuento en 5 artículos de Oeschle";
