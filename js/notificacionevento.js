@@ -61,9 +61,15 @@ function renderEventos() {
 
       // HU-019 → Si estaba inscrito, otorgar puntos
       if (ev.inscritos) {
-        let puntos = Number(localStorage.getItem("puntosUsuario") || 0);
-        puntos += 30; // Puntos por evento completado
-        localStorage.setItem("puntosUsuario", puntos);
+ const users = JSON.parse(localStorage.getItem("tf_users") || "[]");
+        const email = localStorage.getItem("tf_session");
+        const idx = users.findIndex((u) => u.email === email);
+
+        if (idx !== -1) {
+          const puntos = Number(users[idx].puntos || 0) + 30; // Puntos por evento completado
+          users[idx].puntos = puntos;
+          localStorage.setItem("tf_users", JSON.stringify(users));
+        }
       }
     }
   });
@@ -84,3 +90,4 @@ document.addEventListener("click", (e) => {
     renderEventos();
   }
 });
+
