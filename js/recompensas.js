@@ -305,7 +305,7 @@ function agregarAlHistorial(nombreRecompensa) {
 
 document.querySelector(".recompensa-mejor-puesto-btn")?.addEventListener("click", () => {
 
-    const usuarioCalifica = usuarioEstaEnMejoresPuestos; 
+    const usuarioCalifica = false; 
     const recompensaNombre = " 50% de descuento en 5 artículos de Oeschle";
 
     // ❌ No califica
