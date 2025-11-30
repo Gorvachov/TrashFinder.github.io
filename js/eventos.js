@@ -2,8 +2,43 @@
 
 const listaEventos = document.getElementById("listaEventos");
 
+const USERS_KEY = "tf_users";
+const SESSION_KEY = "tf_session";
+
+function getSessionEmail() {
+  return localStorage.getItem(SESSION_KEY);
+}
+
+function getUsers() {
+  return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+}
+
+function findCurrentUser() {
+  const email = getSessionEmail();
+  if (!email) return null;
+  return getUsers().find((u) => u.email === email) || null;
+}
+
+function saveUser(updatedUser) {
+  const users = getUsers();
+  const idx = users.findIndex((u) => u.email === updatedUser.email);
+  if (idx === -1) return null;
+  users[idx] = updatedUser;
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  return updatedUser;
+}
+
+function addPointsToCurrentUser(amount) {
+  const user = findCurrentUser();
+  if (!user) return null;
+  const total = Number(user.puntos || 0) + amount;
+  user.puntos = total;
+  saveUser(user);
+  return total;
+}
+
 // Puntos del usuario
-let puntos = parseInt(localStorage.getItem("puntosUsuario") || "0");
+let puntos = Number(findCurrentUser()?.puntos || 0);
 
 // Lista fija de eventos ecológicos
 const eventos = [
@@ -28,7 +63,11 @@ const eventos = [
 ];
 
 // Cargar estado previo si existe
-const guardado = JSON.parse(localStorage.getItem("eventosUsuario"));
+const eventosKey = getSessionEmail()
+  ? `eventosUsuario:${getSessionEmail()}`
+  : "eventosUsuario";
+
+const guardado = JSON.parse(localStorage.getItem(eventosKey) || "null");
 if (guardado) {
   guardado.forEach((e, i) => {
     eventos[i].inscrito = e.inscrito;
@@ -78,14 +117,18 @@ document.addEventListener("click", (e) => {
 
   if (action === "toggle") {
     evento.inscrito = !evento.inscrito;
-    localStorage.setItem("eventosUsuario", JSON.stringify(eventos));
+    localStorage.setItem(eventosKey, JSON.stringify(eventos));
     renderEventos();
   }
 
   if (action === "finalizar") {
+    if (!findCurrentUser()) {
+      alert("Debes iniciar sesión para acumular puntos.");
+      return;
+    }
     if (evento.inscrito) {
-      puntos += 20;
-      localStorage.setItem("puntosUsuario", puntos);
+      const total = addPointsToCurrentUser(20);
+      puntos = Number(total || puntos);
       alert(
         `✔ Evento completado. Has ganado 20 puntos.\nTotal: ${puntos} puntos`
       );
