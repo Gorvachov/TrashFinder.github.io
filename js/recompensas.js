@@ -267,3 +267,78 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+
+/* ================================
+   📌 CONFIGURACIÓN DEL USUARIO
+   ================================ */
+// Usa estos valores reales cuando tengas backend
+const puntosUsuario = 320;
+const puestoUsuario = 12;             // Ejemplo: NO está en top 10
+const distritoUsuario = "San Miguel"; // Ejemplo: NO ganador
+
+// Configuraciones del mes
+const distritoGanador = "Miraflores";
+const limitePuesto = 10;
+
+
+
+/* ================================
+   📌 MANEJO DE HISTORIAL
+   ================================ */
+function agregarAlHistorial(nombreRecompensa) {
+    const lista = document.getElementById("historial-list");
+    const vacio = document.getElementById("historial-vacio");
+
+    if (vacio) vacio.style.display = "none";
+
+    const card = document.createElement("article");
+    card.classList.add("dash-card");
+    card.innerHTML = `
+        <p class="dash-route-title">🎁 ${nombreRecompensa}</p>
+        <p class="dash-route-meta">Canjeado hoy</p>
+    `;
+
+    lista.appendChild(card);
+}
+
+//   🥇 RECOMPENSAS POR MEJORES PUESTOS
+
+document.querySelector(".recompensa-mejor-puesto-btn")?.addEventListener("click", () => {
+
+    const usuarioCalifica = usuarioEstaEnMejoresPuestos; 
+    const recompensaNombre = " 50% de descuento en 5 artículos de Oeschle";
+
+    // ❌ No califica
+    if (!usuarioCalifica) {
+        alert("🚫 Aún no estás entre los primeros. ¡Sigue adelante!.");
+        return;
+    }
+
+    // ✅ Sí califica → canje directo
+    agregarAlHistorial(recompensaNombre);
+
+    alert("🎉 ¡Felicidades! Has canjeado la recompensa por mejores puestos.");
+});
+
+
+
+
+//   🏙️ RECOMPENSAS PARA EL MEJOR DISTRITO
+
+document.querySelector(".recompensa-distrito-btn")?.addEventListener("click", () => {
+
+    const usuarioCalifica = distritoUsuario === distritoGanador;
+    const recompensaNombre = "3 cupones gratis de Frutix";
+
+    // ❌ No califica
+    if (!usuarioCalifica) {
+        alert("🚫 Tu distrito aún no está entre los mejores puestos ¡Ayúdalo a alcanzarlo!");
+        return;
+    }
+
+    // ✅ Sí califica → canje directo
+    agregarAlHistorial(recompensaNombre);
+
+    alert("🎉 ¡Felicidades! Has canjeado la recompensa del mejor distrito.");
+});
+
