@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranking ecológico — TrashFinder</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/ranking.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container nav-content">
+        <div class="logo">
+          <img src="img/logo.png" width="36" height="36" alt="Logo Trash Finder" />
+          <span class="logo-text">TRASH FINDER</span>
+        </div>
+        <div class="nav-buttons">
+          <a href="dashboard.html"><button class="btn btn-secondary">Volver al panel</button></a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1 class="page-title">Ranking ecológico</h1>
+      <p class="page-lead">
+        Consulta el top de distritos y de ciudadanos que más aportan al planeta. Se
+        actualiza con tus puntos y los de tu distrito (San Miguel) para este prototipo.
+      </p>
+
+      <section class="summary-cards">
+        <article class="summary-card">
+          <h3>🏆 Puesto del usuario</h3>
+          <p id="resumen-usuario" class="small-text">Inicia sesión para ver tu posición.</p>
+        </article>
+        <article class="summary-card">
+          <h3>🏙️ Puesto de San Miguel</h3>
+          <p id="resumen-distrito" class="small-text">Sumamos todos los puntos del distrito.</p>
+        </article>
+      </section>
+
+      <div class="ranking-grid">
+        <section class="ranking-section">
+          <div class="section-header">
+            <h2>Ranking de distritos más limpios</h2>
+            <span id="badge-distrito" class="badge info">Sumando puntos...</span>
+          </div>
+          <p class="section-meta">
+            Ejemplo de top mensual. San Miguel se calcula con la suma de los puntos de sus ciudadanos (incluyéndote).
+          </p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Distrito</th>
+                  <th>Puntos</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-distritos"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="ranking-section">
+          <div class="section-header">
+            <h2>Ranking de usuarios</h2>
+            <span id="badge-usuario" class="badge info">Calculando...</span>
+          </div>
+          <p class="section-meta">
+            Los puntos usan tu nombre y apellido registrados. Si entras al top 3, podrás canjear la recompensa especial.
+          </p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ciudadano</th>
+                  <th>Distrito</th>
+                  <th>Puntos</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-usuarios"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="js/ranking-data.js"></script>
+    <script src="js/ranking.js"></script>
+    <script src="js/theme.js"></script>
+  </body>
+</html>
