@@ -7,6 +7,9 @@ const sessionEmail = localStorage.getItem(SESSION_KEY);
 const historialKey = sessionEmail
   ? `historial-canjes:${sessionEmail}`
   : "historial-canjes";
+const puntosGastadosKey = sessionEmail
+  ? `puntos-gastados:${sessionEmail}`
+  : "puntos-gastados";
 let puntos = 0;
 let rankingInfo = window.RankingData?.getCurrentUserRanking?.() || {
   users: [],
@@ -42,6 +45,15 @@ function setUserPoints(total) {
   if (!user) return null;
   user.puntos = total;
   saveUser(user);
+  return total;
+}
+
+function getPuntosGastados() {
+  return Number(localStorage.getItem(puntosGastadosKey) || 0);
+}
+
+function setPuntosGastados(total) {
+  localStorage.setItem(puntosGastadosKey, String(total));
   return total;
 }
 
@@ -85,9 +97,15 @@ function renderEstadosRecompensas() {
 
 function syncPuntos() {
   const user = findCurrentUser();
-  const puntosRanking = rankingInfo.currentUser?.puntos;
+  const puntosRanking = Number(rankingInfo.currentUser?.puntos ?? 0);
+  const puntosGastados = getPuntosGastados();
 
-  puntos = Number(user?.puntos ?? puntosRanking ?? 0);
+  if (puntosRanking > 0) {
+    puntos = Math.max(0, puntosRanking - puntosGastados);
+    if (user) setUserPoints(puntos);
+  } else {
+    puntos = Number(user?.puntos ?? 0);
+  }
   if (puntosEl) puntosEl.textContent = puntos;
 }
 
@@ -114,7 +132,9 @@ document.querySelectorAll(".canjear-btn").forEach(btn => {
     }
     
     puntos -= costo;
-     setUserPoints(puntos);
+    const nuevosPuntosGastados = getPuntosGastados() + costo;
+    setPuntosGastados(nuevosPuntosGastados);
+    setUserPoints(puntos);
     puntosEl.textContent = puntos;
     refreshRankingInfo();
     renderEstadosRecompensas();
