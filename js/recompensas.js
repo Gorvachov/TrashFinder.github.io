@@ -96,15 +96,26 @@ function renderEstadosRecompensas() {
 function syncPuntos() {
   const user = findCurrentUser();
   const puntosRanking = Number(rankingInfo.currentUser?.puntos ?? 0);
-  const puntosGastados = getPuntosGastados();
 
-  if (puntosRanking > 0) {
-    puntos = Math.max(0, puntosRanking - puntosGastados);
-  } else {
-    puntos = Math.max(0, Number(user?.puntos ?? 0) - puntosGastados);
+  // 1) total de puntos del usuario (para ranking)
+  const total = puntosRanking > 0
+    ? puntosRanking
+    : Number(user?.puntos ?? 0);
+
+  // 2) puntos gastados, limitados a [0, total]
+  let gastados = getPuntosGastados();
+  if (gastados < 0) gastados = 0;
+  if (gastados > total) {
+    gastados = total;              // no puedes gastar más de lo que tienes
+    setPuntosGastados(total);      // actualiza también en localStorage
   }
+
+  // 3) saldo disponible
+  puntos = Math.max(0, total - gastados);
+
   if (puntosEl) puntosEl.textContent = puntos;
 }
+
 
 // Cargar historial al inicio
 window.addEventListener('load', () => {
