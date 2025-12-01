@@ -430,7 +430,7 @@ document.querySelector(".recompensa-premium-btn")?.addEventListener("click", () 
 
     if (!usuarioCalifica) {
         const puestoTexto = puestoUsuario ? `Tu puesto actual es #${puestoUsuario}.` : "Suma puntos para ingresar al ranking.";
-        alert(`🚫 Necesitas estar en el top 3. ${puestoTexto}`);
+        alert(`Aún no estás en los primeros puestos. ¡Sigue esforzándote!`);
         return;
     }
 
@@ -460,7 +460,7 @@ document.querySelector(".recompensa-distrito-btn")?.addEventListener("click", ()
          const puestoTexto = puestoDistritoUsuario
           ? `San Miguel está en el puesto #${puestoDistritoUsuario}.`
           : "Aún no hay datos de San Miguel.";
-        alert(`🚫 Tu distrito aún no lidera el ranking. ${puestoTexto}`);
+        alert(`Tu distrito aún no está entre los mejores puestos ¡Ayúdalo a alcanzarlo!`);
         return;
     }
 
