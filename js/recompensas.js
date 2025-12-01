@@ -100,9 +100,8 @@ function syncPuntos() {
 
   if (puntosRanking > 0) {
     puntos = Math.max(0, puntosRanking - puntosGastados);
-    if (user) setUserPoints(puntos);
   } else {
-    puntos = Number(user?.puntos ?? 0);
+    puntos = Math.max(0, Number(user?.puntos ?? 0) - puntosGastados);
   }
   if (puntosEl) puntosEl.textContent = puntos;
 }
@@ -132,7 +131,6 @@ document.querySelectorAll(".canjear-btn").forEach(btn => {
     puntos -= costo;
     const nuevosPuntosGastados = getPuntosGastados() + costo;
     setPuntosGastados(nuevosPuntosGastados);
-    setUserPoints(puntos);
     puntosEl.textContent = puntos;
     refreshRankingInfo();
     renderEstadosRecompensas();
