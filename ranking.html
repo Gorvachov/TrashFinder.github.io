@@ -38,8 +38,13 @@
         </article>
       </section>
 
+            <div class="ranking-toggle" role="group" aria-label="Selector de ranking">
+        <button id="btn-distritos" class="btn btn-primary" data-ranking-target="distritos">Ranking de distritos más limpios</button>
+        <button id="btn-usuarios" class="btn btn-secondary" data-ranking-target="usuarios">Ranking de usuarios</button>
+      </div>
+
       <div class="ranking-grid">
-        <section class="ranking-section">
+        <section id="section-distritos" class="ranking-section">
           <div class="section-header">
             <h2>Ranking de distritos más limpios</h2>
             <span id="badge-distrito" class="badge info">Sumando puntos...</span>
@@ -61,7 +66,7 @@
           </div>
         </section>
 
-        <section class="ranking-section">
+        <section id="section-usuarios" class="ranking-section hidden" aria-hidden="true">
           <div class="section-header">
             <h2>Ranking de usuarios</h2>
             <span id="badge-usuario" class="badge info">Calculando...</span>
