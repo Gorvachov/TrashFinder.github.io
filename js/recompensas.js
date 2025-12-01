@@ -1,8 +1,6 @@
 const puntosEl = document.getElementById("total-puntos");
 const historialList = document.getElementById("historial-list");
 const historialVacio = document.getElementById("historial-vacio");
-const USERS_KEY = "tf_users";
-const SESSION_KEY = "tf_session";
 const sessionEmail = localStorage.getItem(SESSION_KEY);
 const historialKey = sessionEmail
   ? `historial-canjes:${sessionEmail}`
