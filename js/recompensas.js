@@ -8,6 +8,16 @@ const historialKey = sessionEmail
   ? `historial-canjes:${sessionEmail}`
   : "historial-canjes";
 let puntos = 0;
+let rankingInfo = window.RankingData?.getCurrentUserRanking?.() || {
+  users: [],
+  districts: [],
+  currentUser: null,
+  sanMiguelRow: null,
+};
+let puestoUsuario = Number(rankingInfo.currentUser?.puesto || 0);
+let distritoUsuario = rankingInfo.currentUser?.distrito || window.RankingData?.SAN_MIGUEL || "San Miguel";
+let puestoDistritoUsuario = Number(rankingInfo.sanMiguelRow?.puesto || 0);
+let distritoGanador = rankingInfo.districts[0]?.nombre || "Miraflores";
 
 function getUsers() {
   return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
@@ -35,6 +45,44 @@ function setUserPoints(total) {
   return total;
 }
 
+const estadoRecompensaTopEl = document.getElementById("estado-recompensa-top");
+const estadoRecompensaDistritoEl = document.getElementById("estado-recompensa-distrito");
+
+function refreshRankingInfo() {
+  rankingInfo = window.RankingData?.getCurrentUserRanking?.() || {
+    users: [],
+    districts: [],
+    currentUser: null,
+    sanMiguelRow: null,
+  };
+  puestoUsuario = Number(rankingInfo.currentUser?.puesto || 0);
+  distritoUsuario = rankingInfo.currentUser?.distrito || window.RankingData?.SAN_MIGUEL || "San Miguel";
+  puestoDistritoUsuario = Number(rankingInfo.sanMiguelRow?.puesto || 0);
+  distritoGanador = rankingInfo.districts[0]?.nombre || "Miraflores";
+}
+
+function renderEstadosRecompensas() {
+  if (estadoRecompensaTopEl) {
+    if (!findCurrentUser()) {
+      estadoRecompensaTopEl.textContent = "Inicia sesión y suma puntos para entrar al top 3.";
+    } else if (puestoUsuario && puestoUsuario <= 3) {
+      estadoRecompensaTopEl.textContent = `Listo para canjear: estás en el puesto #${puestoUsuario}.`;
+    } else if (puestoUsuario) {
+      estadoRecompensaTopEl.textContent = `Tu puesto es #${puestoUsuario}. Necesitas llegar al top 3.`;
+    }
+  }
+
+  if (estadoRecompensaDistritoEl) {
+    if (!rankingInfo.sanMiguelRow) {
+      estadoRecompensaDistritoEl.textContent = "Suma puntos en San Miguel para competir por el #1.";
+    } else if (puestoDistritoUsuario === 1) {
+      estadoRecompensaDistritoEl.textContent = "San Miguel está #1. Puedes canjear la recompensa distrital.";
+    } else {
+      estadoRecompensaDistritoEl.textContent = `San Miguel está en el puesto #${puestoDistritoUsuario}. Si supera a ${distritoGanador}, desbloqueas el canje.`;
+    }
+  }
+}
+
 function syncPuntos() {
   const user = findCurrentUser();
   puntos = Number(user?.puntos || 0);
@@ -43,8 +91,10 @@ function syncPuntos() {
 
 // Cargar historial al inicio
 window.addEventListener('load', () => {
-    syncPuntos();
+  syncPuntos();
   cargarHistorial();
+  refreshRankingInfo();
+  renderEstadosRecompensas();
 });
 
 document.querySelectorAll(".canjear-btn").forEach(btn => {
@@ -62,6 +112,8 @@ document.querySelectorAll(".canjear-btn").forEach(btn => {
     puntos -= costo;
      setUserPoints(puntos);
     puntosEl.textContent = puntos;
+    refreshRankingInfo();
+    renderEstadosRecompensas();
     
     // Guardar canje en localStorage
     const recompensa = btn.parentElement.querySelector(".dash-route-title").textContent;
@@ -317,15 +369,6 @@ document.addEventListener('keydown', (e) => {
    ================================ */
 // Usa estos valores reales cuando tengas backend
 const puntosUsuario = puntos;
-const puestoUsuario = Number(findCurrentUser()?.puesto ?? 12); // Ejemplo: NO está en top 10
-const distritoUsuario = findCurrentUser()?.distrito || "San Miguel"; // Ejemplo: NO ganador
-
-// Configuraciones del mes
-const distritoGanador = "Miraflores";
-const limitePuesto = 10;
-
-
-
 /* ================================
    📌 MANEJO DE HISTORIAL
    ================================ */
@@ -344,18 +387,24 @@ function agregarAlHistorial(nombreRecompensa, puntosCanje = 0) {
 //   🥇 RECOMPENSAS POR MEJORES PUESTOS
 
 document.querySelector(".recompensa-premium-btn")?.addEventListener("click", () => {
+    refreshRankingInfo();
 
-    const usuarioCalifica = false; 
-    const recompensaNombre = " 50% de descuento en 5 artículos de Oeschle";
-
-    // ❌ No califica
-    if (!usuarioCalifica) {
-        alert("🚫 Aún no estás entre los primeros. ¡Sigue adelante!.");
+     if (!findCurrentUser()) {
+        alert("Debes iniciar sesión y sumar puntos para canjear esta recompensa.");
         return;
     }
 
-    // ✅ Sí califica → canje directo
+    const usuarioCalifica = puestoUsuario > 0 && puestoUsuario <= 3;
+    const recompensaNombre = "50% de descuento en 5 artículos de Oeschle";
+
+    if (!usuarioCalifica) {
+        const puestoTexto = puestoUsuario ? `Tu puesto actual es #${puestoUsuario}.` : "Suma puntos para ingresar al ranking.";
+        alert(`🚫 Necesitas estar en el top 3. ${puestoTexto}`);
+        return;
+    }
+
     agregarAlHistorial(recompensaNombre);
+    renderEstadosRecompensas();
 
     alert("🎉 ¡Felicidades! Has canjeado la recompensa por mejores puestos.");
 });
@@ -366,19 +415,26 @@ document.querySelector(".recompensa-premium-btn")?.addEventListener("click", () 
 //   🏙️ RECOMPENSAS PARA EL MEJOR DISTRITO
 
 document.querySelector(".recompensa-distrito-btn")?.addEventListener("click", () => {
+    refreshRankingInfo();
 
-    const usuarioCalifica = distritoUsuario === distritoGanador;
-    const recompensaNombre = "3 cupones gratis de Frutix";
-
-    // ❌ No califica
-    if (!usuarioCalifica) {
-        alert("🚫 Tu distrito aún no está entre los mejores puestos ¡Ayúdalo a alcanzarlo!");
+    if (!findCurrentUser()) {
+        alert("Inicia sesión para que tus puntos sumen a San Miguel.");
         return;
     }
 
-    // ✅ Sí califica → canje directo
+    const usuarioCalifica = puestoDistritoUsuario === 1;
+    const recompensaNombre = "3 cupones gratis de Frutix";
+  
+    if (!usuarioCalifica) {
+         const puestoTexto = puestoDistritoUsuario
+          ? `San Miguel está en el puesto #${puestoDistritoUsuario}.`
+          : "Aún no hay datos de San Miguel.";
+        alert(`🚫 Tu distrito aún no lidera el ranking. ${puestoTexto}`);
+        return;
+    }
+
     agregarAlHistorial(recompensaNombre);
+    renderEstadosRecompensas();
 
     alert("🎉 ¡Felicidades! Has canjeado la recompensa del mejor distrito.");
 });
-
